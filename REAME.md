@@ -24,7 +24,7 @@ Sistema de gestión para panadería con funcionalidades de clientes, productos, 
 ## 🔧 Instalación
 
 ```bash
-git clone https://github.com/usuario/casita-bakery.git
+git https://github.com/Mendo0729/Casita_Bakery_2.0.git
 cd casita-bakery
 python -m venv venv
 source venv/bin/activate  # o venv\Scripts\activate en Windows
