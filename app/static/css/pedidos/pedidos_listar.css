@@ -1,0 +1,236 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-crema);
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+}
+
+.head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--color-marron-oscuro);
+    margin: 0;
+    font-size: 2rem;
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-grow: 1;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.search-bar input,
+.search-bar select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-marron-claro);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus,
+.search-bar select:focus {
+    outline: none;
+    border-color: var(--color-marron-oscuro);
+    box-shadow: 0 0 0 2px rgba(94, 45, 30, 0.2);
+}
+
+.search-bar button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#search-btn {
+    background-color: var(--color-marron-oscuro);
+    color: var(--color-crema);
+}
+
+#search-btn:hover {
+    background-color: #4a2418;
+    transform: translateY(-1px);
+}
+
+#clear-search {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-marron-oscuro);
+}
+
+#clear-search:hover {
+    background-color: var(--color-rosa-pastel);
+}
+
+/* BOTÓN AGREGAR */
+.add .btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    background-color: var(--color-rosa-pastel);
+    color: var(--color-crema);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.add .btn-add:hover {
+    background-color: #c2666b;
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-suave);
+}
+
+/* TABLA */
+.table-responsive {
+    overflow-x: auto;
+    background-color: var(--color-crema);
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+}
+
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.table th {
+    background-color: var(--color-marron-oscuro);
+    color: var(--color-crema);
+    padding: 1rem;
+    text-align: left;
+}
+
+table.table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-rosa-claro);
+    vertical-align: middle;
+    color: var(--color-marron-oscuro);
+}
+
+table.table tr:last-child td {
+    border-bottom: none;
+}
+
+table.table tr:hover {
+    background-color: var(--color-rosa-claro);
+}
+
+/* ACCIONES */
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actions a,
+.actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--color-crema);
+    font-size: 0.9rem;
+    background-color: var(--color-marron-claro);
+}
+
+.actions .btn-edit {
+    background-color: var(--color-marron-oscuro);
+}
+
+.actions .btn-delete {
+    background-color: var(--color-rosa-pastel);
+}
+
+.actions a:hover,
+.actions button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--sombra-suave);
+}
+
+/* RESPONSIVE ESTILO TARJETA */
+@media (max-width: 768px) {
+    .head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-bar {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    table.table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        width: 100%;
+    }
+
+    table.table thead {
+        display: none;
+    }
+
+    table.table tr {
+        margin-bottom: 1rem;
+        background-color: var(--color-crema);
+        border: 1px solid var(--color-rosa-claro);
+        border-radius: 8px;
+        box-shadow: var(--sombra-suave);
+        padding: 1rem;
+    }
+
+    table.table td {
+        padding: 0.75rem 1rem;
+        text-align: right;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    table.table td:last-child {
+        border-bottom: none;
+    }
+
+    table.table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 0.75rem;
+        font-weight: 700;
+        text-align: left;
+        color: var(--color-marron-oscuro);
+    }
+
+    .actions a,
+    .actions button {
+        font-size: 1.3rem;
+        margin-right: 1rem;
+    }
+
+    .actions {
+        justify-content: flex-end;
+    }
+
+}

@@ -1,0 +1,38 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Casita Bakery{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='icon/Logo.png') }}" type="image/x-icon" />
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div id="sidebar-container"></div>
+
+  <main class="Contenido-principal">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Sidebar dinámico como módulo -->
+  <script type="module">
+    import { createSidebar } from "{{ url_for('static', filename='js/sidebar.js') }}";
+    const sidebar = createSidebar();
+    document.getElementById("sidebar-container").appendChild(sidebar);
+  </script>
+
+  <!-- 👇 Aquí agregamos este bloque que faltaba -->
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura Pedido #{{ pedido.id }}</title>
+    <style>
+        :root {
+            --color-marron-oscuro: #5E2D1E;
+            --color-rosa-pastel: #D4777C;
+            --color-crema: #F8F5F3;
+            --color-texto: #000000;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: var(--color-texto);
+            background-color: white;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .factura {
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            background-color: var(--color-crema);
+        }
+
+        .encabezado {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .encabezado h1 {
+            margin: 0;
+            color: var(--color-marron-oscuro);
+        }
+
+        .info {
+            margin-bottom: 2rem;
+        }
+
+        .info p {
+            margin: 0.25rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--color-marron-oscuro);
+            color: white;
+        }
+
+        tfoot td {
+            font-weight: bold;
+            border-top: 2px solid var(--color-marron-oscuro);
+        }
+
+        .footer {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="factura">
+        <div class="encabezado">
+            <img src="{{ url_for('static', filename='icon/Logo.png') }}" alt="Logo" height="80">
+            <h1>Factura Pedido #{{ pedido.id }}</h1>
+        </div>
+
+        <div class="info">
+            <p><strong>Cliente:</strong> {{ pedido.cliente.nombre }}</p>
+            <p><strong>Fecha del Pedido:</strong> {{ pedido.fecha_pedido.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Fecha de Entrega:</strong> {{ pedido.fecha_entrega.strftime('%d/%m/%Y') if pedido.fecha_entrega else 'N/A' }}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in pedido.detalles %}
+                <tr>
+                    <td>{{ detalle.producto.nombre }}</td>
+                    <td>{{ detalle.cantidad }}</td>
+                    <td>${{ '%.2f' % detalle.precio_unitario }}</td>
+                    <td>${{ '%.2f' % detalle.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total</td>
+                    <td>${{ '%.2f' % pedido.total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="footer">
+            Gracias por su compra ❤ <br>
+            Casita Bakery
+        </div>
+    </div>
+</body>
+</html>

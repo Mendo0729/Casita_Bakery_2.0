@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de Cliente | {{ cliente.nombre }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/clientes/clientes_detalle.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>
+        <i class="fas fa-user"></i> Detalles del Cliente
+    </h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ cliente.nombre }}</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>ID:</strong> {{ cliente.id }}</p>
+                    <p><strong>Fecha de Registro:</strong> {{ cliente.fecha_registro.strftime('%d/%m/%Y %H:%M') }}</p>
+                </div>
+                <!-- Puedes añadir más información aquí -->
+            </div>
+            
+            <div class="btn">
+                <a href="{{ url_for('clientes.listar') }}" class="btn-return">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+                <a href="#" class="btn-edit" onclick="alert('Función de edición no disponible aún')">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sección opcional para pedidos del cliente -->
+    {#
+    {% if pedidos %}
+    <div class="mt-4">
+        <h4><i class="fas fa-shopping-basket"></i> Pedidos Recientes</h4>
+        <!-- Tabla de pedidos -->
+    </div>
+    {% endif %}
+    #}
+</div>
+{% endblock %}

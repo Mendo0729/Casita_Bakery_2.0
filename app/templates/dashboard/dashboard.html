@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="head-dashboard">
+        <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+
+        <!-- Accesos Rápidos -->
+        <div class="quick-access">
+            <a href="{{ url_for('clientes.nuevo') }}" class="quick-access-btn">
+                <i class="fas fa-users"></i> Clientes
+            </a>
+            <a href="{{ url_for('pedidos.crear') }}" class="quick-access-btn">
+                <i class="fas fa-shopping-cart"></i> Pedidos
+            </a>
+            <a href="{{ url_for('productos.listar') }}" class="quick-access-btn">
+                <i class="fas fa-box-open"></i> Productos
+            </a>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="card-summary" id="card-clientes">
+            <h3>Clientes</h3>
+            <p class="card-value" id="total-clientes">0</p>
+        </div>
+        <div class="card-summary" id="card-pedidos">
+            <h3>Pedidos</h3>
+            <p class="card-value" id="total-pedidos">0</p>
+        </div>
+        <div class="card-summary" id="card-ingresos">
+            <h3>Ingresos</h3>
+            <p class="card-value" id="total-ingresos">$0.00</p>
+        </div>
+        <div class="card-summary" id="card-productos">
+            <h3>Productos</h3>
+            <p class="card-value" id="total-productos">0</p>
+        </div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-box">
+            <h4>Pedidos por Estado</h4>
+            <canvas id="grafico-estados"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h4>Ingresos últimos 7 días</h4>
+            <canvas id="grafico-ingresos"></canvas>
+        </div>
+    </div>
+
+    <div class="top-productos-container">
+        <h4>Top 5 Productos Más Vendidos</h4>
+        <ul id="lista-top-productos">
+            <!-- Aquí se insertan los productos desde JS -->
+        </ul>
+    </div>
+
+    <div class="pedidos-pendientes-container">
+        <h4>Pedidos pendientes</h4>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard/dashboard.js') }}"></script>
+{% endblock %}

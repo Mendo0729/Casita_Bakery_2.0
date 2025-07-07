@@ -1,0 +1,104 @@
+/* Base.html - Versión mejorada con sidebar fijo */
+
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+/* VARIABLES */
+:root {
+    --color-marron-oscuro: #5E2D1E;
+    --color-rosa-pastel: #D4777C;
+    --color-rosa-claro: #ffd3d5;
+    --color-crema: #F8F5F3;
+    --color-marron-claro: #B6704F;
+    --color-texto: #000000;
+    --sombra-suave: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --sombra-elevada: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --sidebar-width: 280px;
+}
+
+/* RESET Y BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--color-rosa-claro);
+    color: var(--color-texto);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENÚ LATERAL (SIDEBAR) */
+.menu__side {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--color-marron-oscuro);
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+
+/* CONTENIDO PRINCIPAL */
+.Contenido-principal {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 30px;
+    padding-left: 100px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* BOTONES GENERALES (manteniendo tu estilo) */
+.btn {
+    background-color: var(--color-marron-oscuro);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    min-width: 200px;
+}
+
+.btn:hover {
+    background-color: var(--color-marron-claro);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-elevada);
+}
+
+/* ----------------- RESPONSIVE MÓVILES ----------------- */
+@media (max-width: 768px) {
+    .menu__side {
+        width: 100%;
+        height: auto;
+        position: static;
+        transform: none;
+    }
+    
+    .Contenido-principal {
+        margin-left: 0;
+        padding: 20px 15px; /* Padding más pequeño en móviles */
+        width: 100%;
+    }
+    
+    /* Centrado perfecto del contenido */
+    .content-container {
+        width: 100%;
+        padding: 0;
+    }
+}
+

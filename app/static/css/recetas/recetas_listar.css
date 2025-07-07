@@ -1,0 +1,184 @@
+/* Estilos para la página de Recetas */
+:root {
+    --color-borde: #E0D5D0;
+    --color-texto: #333333;
+    --sombra-suave: 0 4px 12px rgba(93, 64, 55, 0.1);
+    --sombra-card: 0 4px 12px rgba(94, 45, 30, 0.15);
+    --transition: all 0.3s ease;
+    --border-radius: 12px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-crema);
+    border-radius: var(--border-radius);
+    box-shadow: var(--sombra-suave);
+}
+
+h2 {
+    color: var(--color-marron-oscuro);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2.2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--color-rosa-pastel);
+}
+
+/* Estilos para la tabla en desktop */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: white;
+    font-family: 'Quicksand', sans-serif;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+}
+
+thead {
+    background-color: var(--color-marron-oscuro);
+    color: white;
+}
+
+th {
+    padding: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+td {
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--color-borde);
+    color: var(--color-texto);
+    text-align: center;
+    vertical-align: middle;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: var(--color-rosa-claro);
+    transition: var(--transition);
+}
+
+/* Estilos mejorados para el botón */
+.btn-ver {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background-color: var(--color-marron-claro);
+    color: white !important;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 600;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-ver:hover {
+    background-color: white;
+    color: var(--color-marron-claro) !important;
+    border-color: var(--color-marron-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(94, 45, 30, 0.2);
+}
+
+/* Estilos responsivos - Vista Card */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    
+    thead {
+        display: none;
+    }
+    
+    tr {
+        margin-bottom: 1.5rem;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--sombra-card);
+        position: relative;
+        background-color: white;
+        padding: 1rem;
+        border: 1px solid var(--color-borde);
+    }
+    
+    td {
+        padding: 0.8rem 0.8rem 0.8rem 40%;
+        position: relative;
+        border-bottom: 1px solid var(--color-borde);
+        text-align: right;
+    }
+    
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 700;
+        color: var(--color-marron-oscuro);
+        width: 35%;
+        text-align: left;
+    }
+    
+    td:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .btn-ver {
+        width: auto;
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    td {
+        padding: 0.8rem 0.8rem 0.8rem 50%;
+    }
+    
+    td::before {
+        width: 45%;
+    }
+    
+    .btn-ver {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error del Servidor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors/500.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='icon/logo.png') }}" alt="Logo Casita Bakery" class="logo">
+        <h1>¡Algo salió mal!</h1>
+        <p>Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.</p>
+        <a href="{{ url_for('main.login') }}" class="btn-home">Volver al inicio</a>
+    </div>
+</body>
+</html>

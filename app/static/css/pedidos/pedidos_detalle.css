@@ -1,0 +1,238 @@
+/* pedidos_detalle.css */
+
+/* Estilos base */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-crema);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(94, 45, 30, 0.1);
+}
+
+
+h2 {
+    color: var(--color-marron-oscuro);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--color-rosa-pastel);
+}
+
+/* Información del pedido */
+.container p {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0.8rem 0;
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container strong {
+    color: var(--color-marron-oscuro);
+    min-width: 150px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+/* Estado del pedido */
+.container p:nth-of-type(4) {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Tabla de productos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+thead {
+    background-color: var(--color-marron-oscuro);
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0e6e0;
+    color: var(--color-texto);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Total */
+.total-container {
+    text-align: right;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-marron-oscuro);
+}
+
+.total-container strong {
+    color: var(--color-marron-claro);
+    min-width: auto;
+}
+
+/* Botones */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--color-marron-claro);
+    color: white;
+    border-radius: 25px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+    background-color: var(--color-marron-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(94, 45, 30, 0.2);
+}
+
+.btn-descargar-factura {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 25px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-descargar-factura:hover {
+    background-color: #3e8e41;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(62, 142, 65, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .container p {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .container strong {
+        min-width: auto;
+    }
+
+    /* Vista card para móviles */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 1rem;
+        border: 1px solid #f0e6e0;
+    }
+
+    td {
+        padding: 0.5rem 0.5rem 0.5rem 40%;
+        position: relative;
+        border-bottom: 1px solid #f0e6e0;
+        text-align: right;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 600;
+        color: var(--color-marron-oscuro);
+        width: 35%;
+        text-align: left;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-volver, .btn-descargar-factura {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,284 @@
+[2025-06-28 14:38:47,688] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 14:39:03,185] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-28 14:39:03,201] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-28 14:39:10,200] INFO in productos: [PRODUCTOS] Listando todos los productos
+[2025-06-28 14:39:10,224] INFO in productos: [PRODUCTOS] Encontrados 11 productos
+[2025-06-28 14:39:15,712] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-28 14:39:22,820] INFO in pedidos: [PEDIDOS] Listado de pedidos con estado: pendiente
+[2025-06-28 14:39:30,232] INFO in pedidos: [PEDIDOS] Listado de pedidos con estado: cancelado
+[2025-06-28 14:39:34,497] INFO in pedidos: [PEDIDOS] Listado de pedidos con estado: entregado
+[2025-06-28 14:39:38,862] INFO in pedidos: [PEDIDOS] Listado de pedidos con estado: entregado
+[2025-06-28 14:39:41,917] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-28 14:39:47,823] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-28 14:39:47,826] INFO in productos: [PRODUCTOS] Listando todos los productos
+[2025-06-28 14:39:47,838] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-28 14:39:47,878] INFO in productos: [PRODUCTOS] Encontrados 11 productos
+[2025-06-28 22:28:06,724] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 22:28:22,696] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-28 22:28:24,712] INFO in productos: [PRODUCTOS] Listando todos los productos
+[2025-06-28 22:28:24,751] INFO in productos: [PRODUCTOS] Encontrados 11 productos
+[2025-06-28 22:28:25,857] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-28 22:28:25,887] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-28 23:03:00,382] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:03:04,601] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\dashboard.py", line 8, in index
+    return render_template('index.html')
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\templates\index.html", line 28, in top-level template code
+    <form method="POST" action="{{ url_for('login.login') }}">
+    ^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'login.login'. Did you mean 'main.index' instead?
+[2025-06-28 23:03:52,108] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:03:52,898] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\dashboard.py", line 8, in index
+    return render_template('index.html')
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\templates\index.html", line 28, in top-level template code
+    <form method="POST" action="{{ url_for('login.login') }}">
+    ^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'login.login'. Did you mean 'main.index' instead?
+[2025-06-28 23:04:39,854] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:04:40,358] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\dashboard.py", line 8, in index
+    return render_template('index.html')
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\templates\index.html", line 28, in top-level template code
+    <form method="POST" action="{{ url_for('login.login') }}">
+    ^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'login.login'. Did you mean 'main.index' instead?
+[2025-06-28 23:04:59,241] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:05:54,843] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:09:16,549] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:11:30,769] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:11:33,642] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\main.py", line 23, in login
+    return render_template('index.html')
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\templates\index.html", line 28, in top-level template code
+    <form method="POST" action="{{ url_for('login.login') }}">
+    ^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+        endpoint,
+    ...<3 lines>...
+        force_external=_external,
+    )
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\werkzeug\routing\map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'login.login'. Did you mean 'main.login' instead?
+[2025-06-28 23:12:24,266] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:13:48,287] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-28 23:13:48,398] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-28 23:14:56,600] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:15:17,769] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:15:35,283] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:16:26,689] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:19:36,002] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:20:08,972] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:26:18,451] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:37:38,800] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:38:33,313] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:39:58,785] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-28 23:40:24,172] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-28 23:45:11,587] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 18:10:27,707] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 18:14:41,032] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:11:58,137] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:12:51,838] ERROR in app: Exception on / [POST]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\main.py", line 16, in login
+    login_user(user)  # <-- Flask-Login maneja la sesión
+    ~~~~~~~~~~^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask_login\utils.py", line 180, in login_user
+    if not force and not user.is_active:
+                         ^^^^^^^^^^^^^^
+AttributeError: 'Usuario' object has no attribute 'is_active'
+[2025-06-29 21:14:35,072] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:14:36,458] ERROR in app: Exception on / [POST]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\main.py", line 16, in login
+    login_user(user)  # <-- Flask-Login maneja la sesión
+    ~~~~~~~~~~^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask_login\utils.py", line 180, in login_user
+    if not force and not user.is_active:
+                         ^^^^^^^^^^^^^^
+AttributeError: 'Usuario' object has no attribute 'is_active'
+[2025-06-29 21:14:44,650] ERROR in app: Exception on / [POST]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\main.py", line 16, in login
+    login_user(user)  # <-- Flask-Login maneja la sesión
+    ~~~~~~~~~~^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask_login\utils.py", line 180, in login_user
+    if not force and not user.is_active:
+                         ^^^^^^^^^^^^^^
+AttributeError: 'Usuario' object has no attribute 'is_active'
+[2025-06-29 21:15:23,915] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:15:28,719] ERROR in app: Exception on / [POST]
+Traceback (most recent call last):
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\app\routes\main.py", line 16, in login
+    login_user(user)  # <-- Flask-Login maneja la sesión
+    ~~~~~~~~~~^^^^^^
+  File "C:\Users\USUARIO\Desktop\Python\Casita_Bakery\venv\Lib\site-packages\flask_login\utils.py", line 180, in login_user
+    if not force and not user.is_active:
+                         ^^^^^^^^^^^^^^
+AttributeError: 'Usuario' object has no attribute 'is_active'
+[2025-06-29 21:16:29,961] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:18:22,397] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:19:00,587] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:19:27,845] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:24:26,600] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:25:35,401] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-29 21:25:35,500] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-29 21:25:37,168] INFO in productos: [PRODUCTOS] Listando todos los productos
+[2025-06-29 21:25:37,248] INFO in productos: [PRODUCTOS] Encontrados 11 productos
+[2025-06-29 21:25:42,837] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-29 21:25:51,768] INFO in clientes: [CLIENTES] Listando todos los clientes
+[2025-06-29 21:25:51,783] INFO in clientes: [CLIENTES] Encontrados 7 clientes
+[2025-06-29 21:25:56,962] INFO in pedidos: [PEDIDOS] Listando todos los pedidos
+[2025-06-29 21:43:06,768] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-06-29 21:45:14,138] INFO in __init__: Aplicación Casita Bakery iniciada
+[2025-07-07 17:21:17,228] INFO in __init__: Aplicación Casita Bakery iniciada
