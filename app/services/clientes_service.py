@@ -15,8 +15,8 @@ def obtener_todos():
         if not clientes:
             logging.info("No hay clientes registrados en la base de datos")
             return response(
-                success=True,  # Cambiar a True
-                data=[],       # Lista vacía en lugar de error
+                success=True,
+                data=[],
                 message="No hay clientes registrados",
                 status_code=200  # Cambiar a 200
             )
