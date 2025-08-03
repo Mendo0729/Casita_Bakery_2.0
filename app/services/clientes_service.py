@@ -8,17 +8,17 @@ from app.utils.db import db
 
 
 def obtener_todos():
+
     try:
         clientes = Clientes.query.order_by(Clientes.nombre.asc()).all()
         
-        # Cambiar el manejo de lista vacía
         if not clientes:
             logging.info("No hay clientes registrados en la base de datos")
             return response(
                 success=True,
                 data=[],
                 message="No hay clientes registrados",
-                status_code=200  # Cambiar a 200
+                status_code=200
             )
 
         serializacion_clientes = [cliente.to_dict() for cliente in clientes]
@@ -55,8 +55,8 @@ def obtener_todos():
         )
 
 def buscar_por_nombre(nombre):
+
     try:
-        # Validación mejorada con sanitización
         if not nombre or not isinstance(nombre, str):
             logging.warning("Parámetro de búsqueda inválido")
             return response(
@@ -69,7 +69,6 @@ def buscar_por_nombre(nombre):
                 status_code=400
             )
 
-        # Sanitizar entrada
         nombre_limpio = nombre.strip()
         if not nombre_limpio:
             logging.warning("Parámetro de búsqueda vacío después de limpiar")
@@ -83,7 +82,7 @@ def buscar_por_nombre(nombre):
                 status_code=400
             )
 
-        # Verificar si hay clientes en la base de datos
+
         total_clientes = Clientes.query.count()
         if total_clientes == 0:
             logging.info("No hay clientes registrados en la base de datos")
@@ -97,7 +96,7 @@ def buscar_por_nombre(nombre):
                 status_code=404
             )
 
-        # Realizar búsqueda
+
         clientes = Clientes.query.filter(Clientes.nombre.ilike(f"%{nombre_limpio}%")).all()
         
         if not clientes:
@@ -149,8 +148,8 @@ def buscar_por_nombre(nombre):
 #-----------------------------------------------------------------------------------------
 
 def obtener_cliente_por_id(cliente_id):
+    
     try:
-        # Validación robusta del ID
         if not isinstance(cliente_id, int) or cliente_id <= 0:
             logging.warning(f"ID inválido recibido: {cliente_id}")
             return response(
@@ -213,6 +212,7 @@ def obtener_cliente_por_id(cliente_id):
 #------------------------------------------------------------------------------------------
 
 def crear_cliente(data):
+    
     try:
         if not data or not isinstance(data, dict):
             logging.warning("Datos de cliente inválidos")
@@ -256,7 +256,7 @@ def crear_cliente(data):
         # Crear nuevo cliente
         nuevo_cliente = Clientes(
             nombre=nombre,
-            # Añadir otros campos aquí según tu modelo
+            # Añadir otros campos aquí
             # email=data.get('email'),
             # telefono=data.get('telefono')
         )
@@ -300,6 +300,7 @@ def crear_cliente(data):
 #----------------------------------------------------------------------
 
 def actualizar_cliente(cliente_id, data):
+
     try:
 
         if not isinstance(cliente_id, int) or cliente_id <= 0:
@@ -361,9 +362,9 @@ def actualizar_cliente(cliente_id, data):
         logging.info(f"Cliente {cliente_id} actualizado correctamente")
         return response(
             success=True,
-            data=cliente.to_dict(),  # Devuelve el cliente actualizado
+            data=cliente.to_dict(),
             message="Cliente actualizado correctamente",
-            status_code=200  # OK para actualización exitosa
+            status_code=200 
         )
 
     except SQLAlchemyError as e:
