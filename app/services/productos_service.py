@@ -1,63 +1,262 @@
-from app.models import Productos
-from app.utils.db import db
+from decimal import Decimal, InvalidOperation
+import logging
+
 from sqlalchemy.exc import SQLAlchemyError
-from werkzeug.exceptions import BadRequest, NotFound
-from decimal import Decimal
 
-def obtener_todos():
-    return Productos.query.filter(Productos.activo == True).order_by(Productos.id.desc()).all()
+from app.models import Productos
+from app.utils.create_responses import create_response as response
+from app.utils.db import db
 
-def obtener_por_nombre(nombre):
-    return Productos.query.filter(Productos.nombre.ilike(f"%{nombre}%")).all()
+def obtener_todos(pagina=1, por_pagina=10, buscar=None):
+    try:
+        query = Productos.query.filter(Productos.activo == True)
+
+        if buscar:
+            query = query.filter(Productos.nombre.ilike(f"%{buscar}%"))
+
+        query = query.order_by(Productos.id.desc())
+        paginacion = query.paginate(page=pagina, per_page=por_pagina, error_out=False)
+
+        if not paginacion.items:
+            logging.info("No hay productos para esta búsqueda/página")
+            return response(
+                success=True,
+                data={
+                    "productos": [],
+                    "pagina": paginacion.page,
+                    "por_pagina": paginacion.per_page,
+                    "total_paginas": paginacion.pages,
+                    "total_productos": paginacion.total
+                },
+                message="No hay productos en esta página o búsqueda",
+                status_code=200
+            )
+
+        productos_data = [p.to_dict() for p in paginacion.items]
+
+        return response(
+            success=True,
+            data={
+                "productos": productos_data,
+                "pagina": paginacion.page,
+                "por_pagina": paginacion.per_page,
+                "total_paginas": paginacion.pages,
+                "total_productos": paginacion.total
+            },
+            message=f"Página {paginacion.page} de {paginacion.pages}",
+            status_code=200
+        )
+
+        
+    except SQLAlchemyError as e:
+        logging.error(f"Error de base de datos al obtener los productos: {str(e)}")
+        return response(
+            success=False,
+            message="Error al obtener los productos",
+            errors={
+                "code": "database_error",
+                "detail": "Error en la base de datos"
+            },
+            status_code=500
+        )
+    except Exception as e:
+        logging.error(f"Error inesperado al obtener los productos: {str(e)}")
+        return response(
+            success=False,
+            message="Error al obtener los productos",
+            errors={
+                "code": "internal_server_error",
+                "detail": "Error interno del servidor"
+            },
+            status_code=500
+        )
+
+#-------------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------------------
 
 def obtener_por_id(producto_id):
-    producto = Productos.query.get(producto_id)
-    if not producto:
-        raise NotFound("Producto no encontrado")
-    return producto
+
+    try:
+        if not isinstance(producto_id, int) or producto_id <= 0:
+            logging.warning(f"ID inválido recibido: {producto_id}")
+            return response(
+                success=False,
+                message="ID de producto inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El ID debe ser un entero positivo"
+                },
+                status_code=400
+            )
+
+        producto = Productos.query.get(producto_id, active=True).first()
+
+        if not producto:
+            logging.info(f"Producto no encontrado con ID: {producto_id}")
+            return response(
+                success=False,
+                message="Producto no encontrado",
+                errors={
+                    "code": "not_found",
+                    "detail": f"No existe producto con ID {producto_id}"
+                },
+                status_code=404
+            )
+
+        logging.info(f"Producto encontrado - ID: {producto_id}")
+        return response(
+            success=True,
+            data=producto.to_dict(),
+            message="Producto obtenido correctamente",
+            status_code=200
+        )
+
+    except SQLAlchemyError as e:
+        logging.error(f"Error de base de datos al buscar producto ID {producto_id}: {str(e)}")
+        return response(
+            success=False,
+            message="Error en la base de datos",
+            errors={
+                "code": "database_error",
+                "detail": "No se pudo completar la búsqueda"
+            },
+            status_code=500
+        )
+    except Exception as e:
+        logging.error(f"Error inesperado al buscar producto ID {producto_id}: {str(e)}")
+        return response(
+            success=False,
+            message="Error interno del servidor",
+            errors={
+                "code": "internal_server_error",
+                "detail": "Ocurrió un error inesperado"
+            },
+            status_code=500
+        )
+
 
 #---------------------------------------------------------------------------------------------------------------
 
-def crear(data):
-    
+def crear_producto(data):
     try:
+        if not data or not isinstance(data, dict):
+            logging.warning("Datos de producto inválidos")
+            return response(
+                success=False,
+                message="Datos de producto inválidos",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "Se esperaba un diccionario con los datos del producto"
+                },
+                status_code=400
+            )
+
         nombre = data.get("nombre", "").strip()
-        precio = data.get("precio")
-        descripcion = data.get("descripcion", "").strip()
-        if not nombre:
-            raise BadRequest("El nombre del producto es obligatorio")
-        
-        if Productos.query.filter(Productos.nombre.ilike(nombre), Productos.activo==True).first():
-            raise BadRequest("Ya existe un producto activo con ese nombre")
-        
+        precio_raw = data.get("precio")
+
+        if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
+            logging.warning(f"Nombre inválido: {nombre}")
+            return response(
+                success=False,
+                message="Nombre de producto inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El nombre debe ser una cadena no vacía (máx 100 caracteres)"
+                },
+                status_code=400
+            )
+
         try:
-            precio = Decimal(str(precio))
+            precio = Decimal(str(precio_raw))
             if precio <= 0:
-                raise ValueError
-        except (ValueError, TypeError):
-            raise BadRequest("El precio debe ser un número positivo")
-        
+                logging.warning(f"Precio menor o igual a cero: {precio_raw}")
+                return response(
+                    success=False,
+                    message="Precio inválido",
+                    errors={
+                        "code": "invalid_input",
+                        "detail": "El precio debe ser un número decimal mayor a 0"
+                    },
+                    status_code=400
+                )
+        except (InvalidOperation, TypeError):
+            logging.warning(f"Precio no válido: {precio_raw}")
+            return response(
+                success=False,
+                message="Precio inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El precio debe ser un número decimal válido"
+                },
+                status_code=400
+            )
+
+        if Productos.query.filter(Productos.nombre.ilike(nombre)).first():
+            logging.warning(f"Intento de crear producto existente: {nombre}")
+            return response(
+                success=False,
+                message="El producto ya existe",
+                errors={
+                    "code": "already_exists",
+                    "detail": f"Ya existe un producto con el nombre '{nombre}'"
+                },
+                status_code=409
+            )
 
         nuevo_producto = Productos(
             nombre=nombre,
             precio=precio,
-            descripcion=descripcion
+            activo=True
         )
 
         db.session.add(nuevo_producto)
         db.session.commit()
-        return nuevo_producto
-    
+
+        logging.info(f"Producto creado exitosamente: {nombre}")
+        return response(
+            success=True,
+            data=nuevo_producto.to_dict(),
+            message="Producto creado exitosamente",
+            status_code=201
+        )
+
     except SQLAlchemyError as e:
         db.session.rollback()
-        raise BadRequest("No se pudo crear el producto") from e
+        logging.error(f"Error de base de datos al crear producto: {str(e)}")
+        return response(
+            success=False,
+            message="Error al guardar el producto",
+            errors={
+                "code": "database_error",
+                "detail": "Error al guardar en la base de datos"
+            },
+            status_code=500
+        )
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Error inesperado al crear producto: {str(e)}")
+        return response(
+            success=False,
+            message="Error interno del servidor",
+            errors={
+                "code": "internal_server_error",
+                "detail": "Ocurrió un error inesperado al crear el producto"
+            },
+            status_code=500
+        )
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def actualizar(producto_id, datos):
+
     try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
+    """try:
         producto = obtener_por_id(producto_id)
         
         # Validar nombre
@@ -82,12 +281,19 @@ def actualizar(producto_id, datos):
         return producto
     except SQLAlchemyError as e:
         db.session.rollback()
-        raise BadRequest(f"Error al actualizar producto: {str(e)}") from e
+        raise BadRequest(f"Error al actualizar producto: {str(e)}") from e"""
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def eliminar(producto_id):
+
     try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
+    """try:
         producto = obtener_por_id(producto_id)
         if not producto:
             raise ValueError("Producto no encontrado")
@@ -96,4 +302,4 @@ def eliminar(producto_id):
         return producto  # <- necesario
     except SQLAlchemyError as e:
         db.session.rollback()
-        raise BadRequest("No se pudo eliminar el producto") from e
+        raise BadRequest("No se pudo eliminar el producto") from e"""
