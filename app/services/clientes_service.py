@@ -7,27 +7,60 @@ from app.utils.create_responses import create_response as response
 from app.utils.db import db
 
 
-def obtener_todos():
+def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 
     try:
-        clientes = Clientes.query.order_by(Clientes.nombre.asc()).all()
-        
-        if not clientes:
-            logging.info("No hay clientes registrados en la base de datos")
+
+        try:
+            pagina = int(pagina)
+            por_pagina = int(por_pagina)
+            if pagina <= 0:
+                logging.warning(f"Número de página inválido: {pagina}. Se ajusta a 1.")
+                pagina = 1
+            if por_pagina <= 0 or por_pagina > 100:
+                logging.warning(f"Cantidad por página inválida: {por_pagina}. Se ajusta a 10.")
+                por_pagina = 10
+        except (ValueError, TypeError) as e:
+            logging.warning(f"Error de tipo en parámetros de paginación: {str(e)}. Se usan valores por defecto.")
+            pagina = 1
+            por_pagina = 10
+
+
+        query = Clientes.query.filter(Clientes.activo == True)
+
+        if buscar:
+            query = query.filter(Clientes.nombre.ilike(f"%{buscar}%"))
+
+        query = query.order_by(Clientes.id.desc())
+        paginacion = query.paginate(page=pagina, per_page=por_pagina, error_out=False)
+
+        if not paginacion.items:
+            logging.info("No hay clientes para esta búsqueda/página")
             return response(
                 success=True,
-                data=[],
-                message="No hay clientes registrados",
+                data={
+                    "clientes": [],
+                    "pagina": paginacion.page,
+                    "por_pagina": paginacion.per_page,
+                    "total_paginas": paginacion.pages,
+                    "total_clientes": paginacion.total
+                },
+                message="No hay productos en esta página o búsqueda",
                 status_code=200
             )
 
-        serializacion_clientes = [cliente.to_dict() for cliente in clientes]
+        clientes_data = [c.to_dict() for c in paginacion.items]
 
-        logging.info(f"Se obtuvieron {len(clientes)} clientes correctamente")
         return response(
             success=True,
-            data=serializacion_clientes,
-            message="Clientes obtenidos correctamente",
+            data={
+                "clientes": clientes_data,
+                "pagina": paginacion.page,
+                "por_pagina": paginacion.per_page,
+                "total_paginas": paginacion.pages,
+                "total_clientes": paginacion.total
+            },
+            message=f"Página {paginacion.page} de {paginacion.pages}",
             status_code=200
         )
 
@@ -53,6 +86,7 @@ def obtener_todos():
             },
             status_code=500
         )
+
 
 def buscar_por_nombre(nombre):
 
