@@ -248,58 +248,196 @@ def crear_producto(data):
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
-def actualizar(producto_id, datos):
-
+def actualizar_producto(producto_id, data):
     try:
-        pass
-    except SQLAlchemyError as e:
-        pass
-    except Exception as e:
-        pass
-    """try:
-        producto = obtener_por_id(producto_id)
-        
-        # Validar nombre
-        nuevo_nombre = datos.get("nombre", "").strip()
-        if not nuevo_nombre:
-            raise BadRequest("El nombre no puede estar vacío")
-        producto.nombre = nuevo_nombre
-        
-        # Validar precio
-        if "precio" in datos:
-            try:
-                nuevo_precio = Decimal(str(datos["precio"]))
-                if nuevo_precio <= 0:
-                    raise ValueError
-                producto.precio = nuevo_precio
-            except (ValueError, TypeError):
-                raise BadRequest("El precio debe ser un número positivo")
-        
-        producto.descripcion = datos.get("descripcion", producto.descripcion).strip()
-        
+        if not isinstance(producto_id, int) or producto_id <= 0:
+            logging.warning(f"ID inválido recibido: {producto_id}")
+            return response(
+                success=False,
+                message="ID de producto inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El ID debe ser un entero positivo"
+                },
+                status_code=400
+            )
+
+        if not data or not isinstance(data, dict):
+            logging.warning("Datos de producto inválidos")
+            return response(
+                success=False,
+                message="Datos de producto inválidos",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "Se esperaba un diccionario con los datos del producto"
+                },
+                status_code=400
+            )
+
+        nombre = data.get("nombre", "").strip()
+        precio_raw = data.get("precio")
+
+        if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
+            logging.warning(f"Nombre inválido: {nombre}")
+            return response(
+                success=False,
+                message="Nombre de producto inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El nombre debe ser una cadena no vacía (máx 100 caracteres)"
+                },
+                status_code=400
+            )
+
+        try:
+            precio = Decimal(str(precio_raw))
+            if precio <= 0:
+                logging.warning(f"Precio menor o igual a cero: {precio_raw}")
+                return response(
+                    success=False,
+                    message="Precio inválido",
+                    errors={
+                        "code": "invalid_input",
+                        "detail": "El precio debe ser un número decimal mayor a 0"
+                    },
+                    status_code=400
+                )
+        except (InvalidOperation, TypeError):
+            logging.warning(f"Precio no válido: {precio_raw}")
+            return response(
+                success=False,
+                message="Precio inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El precio debe ser un número decimal válido"
+                },
+                status_code=400
+            )
+
+        producto = Productos.query.get(producto_id)
+        if not producto:
+            logging.warning(f"Producto no encontrado con ID: {producto_id}")
+            return response(
+                success=False,
+                message="Producto no encontrado",
+                errors={
+                    "code": "not_found",
+                    "detail": f"No se encontró un producto con ID {producto_id}"
+                },
+                status_code=404
+            )
+
+        if Productos.query.filter(Productos.nombre.ilike(nombre), Productos.id != producto_id).first():
+            logging.warning(f"Ya existe otro producto con el nombre: {nombre}")
+            return response(
+                success=False,
+                message="El producto ya existe",
+                errors={
+                    "code": "already_exists",
+                    "detail": f"Ya existe otro producto con el nombre '{nombre}'"
+                },
+                status_code=409
+            )
+
+        producto.nombre = nombre
+        producto.precio = precio
         db.session.commit()
-        return producto
+
+        logging.info(f"Producto actualizado exitosamente: ID {producto_id}")
+        return response(
+            success=True,
+            data=producto.to_dict(),
+            message="Producto actualizado exitosamente",
+            status_code=200
+        )
+
     except SQLAlchemyError as e:
         db.session.rollback()
-        raise BadRequest(f"Error al actualizar producto: {str(e)}") from e"""
+        logging.error(f"Error de base de datos al actualizar producto: {str(e)}")
+        return response(
+            success=False,
+            message="Error al actualizar el producto",
+            errors={
+                "code": "database_error",
+                "detail": "Error al guardar en la base de datos"
+            },
+            status_code=500
+        )
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Error inesperado al actualizar producto: {str(e)}")
+        return response(
+            success=False,
+            message="Error interno del servidor",
+            errors={
+                "code": "internal_server_error",
+                "detail": "Ocurrió un error inesperado al actualizar el producto"
+            },
+            status_code=500
+        )
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def eliminar(producto_id):
 
     try:
-        pass
-    except SQLAlchemyError as e:
-        pass
-    except Exception as e:
-        pass
-    """try:
-        producto = obtener_por_id(producto_id)
+        if not isinstance(producto_id, int) or producto_id <= 0:
+            logging.warning(f"ID inválido recibido: {producto_id}")
+            return response(
+                success=False,
+                message="ID de producto inválido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El ID debe ser un entero positivo"
+                },
+                status_code=400
+            )
+
+        producto = Productos.query.get(producto_id)
         if not producto:
-            raise ValueError("Producto no encontrado")
-        producto.activo = False
+            logging.warning(f"Producto no encontrado con ID: {producto_id}")
+            return response(
+                success=False,
+                message="Producto no encontrado",
+                errors={
+                    "code": "not_found",
+                    "detail": f"No se encontró un producto con ID {producto_id}"
+                },
+                status_code=404
+            )
+
+        db.session.delete(producto)
         db.session.commit()
-        return producto  # <- necesario
+
+        logging.info(f"Producto eliminado exitosamente - ID: {producto_id}")
+        return response(
+            success=True,
+            data={"id": producto_id},
+            message="Producto eliminado exitosamente",
+            status_code=200 
+        )
     except SQLAlchemyError as e:
         db.session.rollback()
-        raise BadRequest("No se pudo eliminar el producto") from e"""
+        logging.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
+        return response(
+            success=False,
+            message="Error al eliminar al producto",
+            errors={
+                "code": "database_error",
+                "detail": "Error en la base de datos"
+                },
+            status_code=500
+        )
+
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
+        return response(
+            success=False,
+            message="Error interno del servidor",
+            errors={
+                "code": "server_error",
+                "detail": "Error al procesar la solicitud"
+            },
+            status_code=500
+        )
