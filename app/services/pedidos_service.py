@@ -13,16 +13,18 @@ from app.utils.db import db
 
 # config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
 
+logger = logging.getLogger(__name__)
+
 def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=None):
     try:
         try:
             pagina = int(pagina)
             por_pagina = int(por_pagina)
             if pagina <= 0:
-                logging.warning(f"Número de página inválido: {pagina}. Se ajusta a 1.")
+                logger.warning(f"Número de página inválido: {pagina}. Se ajusta a 1.")
                 pagina = 1
             if por_pagina <= 0 or por_pagina > 100:
-                logging.warning(f"Cantidad por página inválida: {por_pagina}. Se ajusta a 10.")
+                logger.warning(f"Cantidad por página inválida: {por_pagina}. Se ajusta a 10.")
                 por_pagina = 10
         except (ValueError, TypeError) as e:
             logging.warning(f"Error de tipo en parámetros de paginación: {str(e)}. Se usan valores por defecto.")
@@ -41,7 +43,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
         paginacion = query.paginate(page=pagina, per_page=por_pagina, error_out=False)
 
         if not paginacion.items:
-            logging.info("No hay Pedidos para esta búsqueda/página")
+            logger.info("No hay Pedidos para esta búsqueda/página")
             return response(
                 success=True,
                 data={
@@ -71,7 +73,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
         )
 
     except SQLAlchemyError as e:
-        logging.error(f"Error de base de datos al obtener los pedidos: {str(e)}")
+        logger.error(f"Error de base de datos al obtener los pedidos: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los pedidos",
@@ -82,7 +84,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
             status_code=500
         )
     except Exception as e:
-        logging.error(f"Error inesperado al obtener los pedidos: {str(e)}")
+        logger.error(f"Error inesperado al obtener los pedidos: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los pedidos",
@@ -100,6 +102,7 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
         cliente_response = CS.obtener_cliente_por_id(cliente_id)
         if not cliente_response.get('success'):
             return cliente_response
+
         cliente = CS.obtener_cliente_modelo_por_id(cliente_id)
         if not cliente:
             return response(
@@ -199,7 +202,7 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de base de datos al crear el pedido: {str(e)}")
+        logger.error(f"Error de base de datos al crear el pedido: {str(e)}")
         return response(
             success=False,
             message="Error al guardar el pedido",
@@ -211,7 +214,7 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
         )
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al crear el pedido: {str(e)}")
+        logger.error(f"Error inesperado al crear el pedido: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -269,7 +272,7 @@ def cambiar_estado(pedido_id, estado):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de base de datos al cambiar estado del pedido {pedido_id}: {str(e)}")
+        logger.error(f"Error de base de datos al cambiar estado del pedido {pedido_id}: {str(e)}")
         return response(
             success=False,
             message="Error de base de datos al actualizar el pedido",
@@ -279,7 +282,7 @@ def cambiar_estado(pedido_id, estado):
 
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al cambiar estado del pedido {pedido_id}: {str(e)}")
+        logger.error(f"Error inesperado al cambiar estado del pedido {pedido_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",

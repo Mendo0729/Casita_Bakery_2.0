@@ -10,6 +10,12 @@ class Usuario(UserMixin, db.Model):
     usuario = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'usuario': self.usuario
+        }
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

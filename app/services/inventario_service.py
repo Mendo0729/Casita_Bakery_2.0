@@ -1,17 +1,31 @@
+from sqlalchemy.exc import SQLAlchemyError
 from app.models import Ingrediente
 from app.utils.db import db
 from decimal import Decimal
 
 def obtener_todos():
+
+    try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
     return Ingrediente.query.order_by(Ingrediente.nombre).all()
 
 def obtener_por_id(ingrediente_id):
     return Ingrediente.query.get(ingrediente_id)
 
-def obtener_por_nombre(nombre):
-    return Ingrediente.query.filter(Ingrediente.nombre.ilike(f"%{nombre}%")).order_by(Ingrediente.nombre).all()
 
 def crear(data):
+
+    try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
+
     nuevo = Ingrediente(
         nombre=data['nombre'],
         cantidad=Decimal(data['cantidad']),
@@ -23,6 +37,14 @@ def crear(data):
     return nuevo
 
 def actualizar(ingrediente_id, data):
+
+    try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
+
     ingrediente = Ingrediente.query.get(ingrediente_id)
     if ingrediente:
         ingrediente.nombre = data['nombre']
@@ -33,6 +55,14 @@ def actualizar(ingrediente_id, data):
     return ingrediente
 
 def eliminar(ingrediente_id):
+    
+    try:
+        pass
+    except SQLAlchemyError as e:
+        pass
+    except Exception as e:
+        pass
+
     ingrediente = Ingrediente.query.get(ingrediente_id)
     if ingrediente:
         db.session.delete(ingrediente)

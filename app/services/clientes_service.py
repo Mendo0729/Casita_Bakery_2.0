@@ -6,6 +6,7 @@ from app.models import Clientes
 from app.utils.create_responses import create_response as response
 from app.utils.db import db
 
+logger = logging.getLogger(__name__)
 
 def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 
@@ -15,13 +16,13 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
             pagina = int(pagina)
             por_pagina = int(por_pagina)
             if pagina <= 0:
-                logging.warning(f"Número de página inválido: {pagina}. Se ajusta a 1.")
+                logger.warning(f"Número de página inválido: {pagina}. Se ajusta a 1.")
                 pagina = 1
             if por_pagina <= 0 or por_pagina > 100:
-                logging.warning(f"Cantidad por página inválida: {por_pagina}. Se ajusta a 10.")
+                logger.warning(f"Cantidad por página inválida: {por_pagina}. Se ajusta a 10.")
                 por_pagina = 10
         except (ValueError, TypeError) as e:
-            logging.warning(f"Error de tipo en parámetros de paginación: {str(e)}. Se usan valores por defecto.")
+            logger.warning(f"Error de tipo en parámetros de paginación: {str(e)}. Se usan valores por defecto.")
             pagina = 1
             por_pagina = 10
 
@@ -35,7 +36,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
         paginacion = query.paginate(page=pagina, per_page=por_pagina, error_out=False)
 
         if not paginacion.items:
-            logging.info("No hay clientes para esta búsqueda/página")
+            logger.info("No hay clientes para esta búsqueda/página")
             return response(
                 success=True,
                 data={
@@ -65,7 +66,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
         )
 
     except SQLAlchemyError as e:
-        logging.error(f"Error de base de datos al obtener clientes: {str(e)}")
+        logger.error(f"Error de base de datos al obtener clientes: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los clientes",
@@ -76,7 +77,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
             status_code=500
         )
     except Exception as e:
-        logging.error(f"Error inesperado al obtener clientes: {str(e)}")
+        logger.error(f"Error inesperado al obtener clientes: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los clientes",
@@ -93,7 +94,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 def obtener_cliente_modelo_por_id(cliente_id):
     """Retorna el objeto Cliente si existe, de lo contrario None."""
     if not isinstance(cliente_id, int) or cliente_id <= 0:
-        logging.warning(f"ID inválido recibido: {cliente_id}")
+        logger.warning(f"ID inválido recibido: {cliente_id}")
         return None
     return Clientes.query.get(cliente_id)
 
@@ -102,7 +103,7 @@ def obtener_cliente_por_id(cliente_id):
         cliente = obtener_cliente_modelo_por_id(cliente_id)
 
         if not cliente:
-            logging.info(f"Cliente no encontrado con ID: {cliente_id}")
+            logger.info(f"Cliente no encontrado con ID: {cliente_id}")
             return response(
                 success=False,
                 message="Cliente no encontrado",
@@ -121,7 +122,7 @@ def obtener_cliente_por_id(cliente_id):
         )
 
     except SQLAlchemyError as e:
-        logging.error(f"Error de base de datos al buscar cliente ID {cliente_id}: {str(e)}")
+        logger.error(f"Error de base de datos al buscar cliente ID {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error en la base de datos",
@@ -132,7 +133,7 @@ def obtener_cliente_por_id(cliente_id):
             status_code=500
         )
     except Exception as e:
-        logging.error(f"Error inesperado al buscar cliente ID {cliente_id}: {str(e)}")
+        logger.error(f"Error inesperado al buscar cliente ID {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -150,7 +151,7 @@ def crear_cliente(data):
     
     try:
         if not data or not isinstance(data, dict):
-            logging.warning("Datos de cliente inválidos")
+            logger.warning("Datos de cliente inválidos")
             return response(
                 success=False,
                 message="Datos de cliente inválidos",
@@ -164,7 +165,7 @@ def crear_cliente(data):
         nombre = data.get('nombre', '').strip()
         
         if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
-            logging.warning(f"Nombre inválido: {nombre}")
+            logger.warning(f"Nombre inválido: {nombre}")
             return response(
                 success=False,
                 message="Nombre de cliente inválido",
@@ -177,7 +178,7 @@ def crear_cliente(data):
 
 
         if Clientes.query.filter(Clientes.nombre.ilike(nombre)).first():
-            logging.warning(f"Intento de crear cliente existente: {nombre}")
+            logger.warning(f"Intento de crear cliente existente: {nombre}")
             return response(
                 success=False,
                 message="El cliente ya existe",
@@ -199,7 +200,7 @@ def crear_cliente(data):
         db.session.add(nuevo_cliente)
         db.session.commit()
 
-        logging.info(f"Cliente creado exitosamente: {nombre}")
+        logger.info(f"Cliente creado exitosamente: {nombre}")
         return response(
             success=True,
             data=nuevo_cliente.to_dict(),
@@ -209,7 +210,7 @@ def crear_cliente(data):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de base de datos al crear cliente: {str(e)}")
+        logger.error(f"Error de base de datos al crear cliente: {str(e)}")
         return response(
             success=False,
             message="Error al guardar el cliente",
@@ -221,7 +222,7 @@ def crear_cliente(data):
         )
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al crear cliente: {str(e)}")
+        logger.error(f"Error inesperado al crear cliente: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -239,7 +240,7 @@ def actualizar_cliente(cliente_id, data):
     try:
 
         if not isinstance(cliente_id, int) or cliente_id <= 0:
-            logging.warning(f"ID inválido recibido: {cliente_id}")
+            logger.warning(f"ID inválido recibido: {cliente_id}")
             return response(
                 success=False,
                 message="ID de cliente inválido",
@@ -252,7 +253,7 @@ def actualizar_cliente(cliente_id, data):
         
         cliente = Clientes.query.get(cliente_id)
         if not cliente:
-            logging.info(f"Cliente no encontrado con ID: {cliente_id}")
+            logger.info(f"Cliente no encontrado con ID: {cliente_id}")
             return response(
                 success=False,
                 message="Cliente no encontrado",
@@ -265,7 +266,7 @@ def actualizar_cliente(cliente_id, data):
     
         nuevo_nombre = data.get('nombre', '').strip()
         if not nuevo_nombre or not isinstance(nuevo_nombre, str) or len(nuevo_nombre) > 100:
-            logging.warning(f"Nombre inválido: {nuevo_nombre}")
+            logger.warning(f"Nombre inválido: {nuevo_nombre}")
             return response(
                 success=False,
                 message="Nombre de cliente inválido",
@@ -280,7 +281,7 @@ def actualizar_cliente(cliente_id, data):
                 .filter(Clientes.nombre.ilike(nuevo_nombre))
                 .filter(Clientes.id != cliente_id)
                 .first()):
-            logging.warning(f"Intento de actualizar a nombre existente: {nuevo_nombre}")
+            logger.warning(f"Intento de actualizar a nombre existente: {nuevo_nombre}")
             return response(
                 success=False,
                 message="Nombre no disponible",
@@ -294,7 +295,7 @@ def actualizar_cliente(cliente_id, data):
         cliente.nombre = nuevo_nombre
         db.session.commit()
 
-        logging.info(f"Cliente {cliente_id} actualizado correctamente")
+        logger.info(f"Cliente {cliente_id} actualizado correctamente")
         return response(
             success=True,
             data=cliente.to_dict(),
@@ -304,7 +305,7 @@ def actualizar_cliente(cliente_id, data):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de BD al actualizar cliente {cliente_id}: {str(e)}")
+        logger.error(f"Error de BD al actualizar cliente {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error al actualizar el cliente",
@@ -317,7 +318,7 @@ def actualizar_cliente(cliente_id, data):
 
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al actualizar cliente {cliente_id}: {str(e)}")
+        logger.error(f"Error inesperado al actualizar cliente {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -333,7 +334,7 @@ def eliminar_cliente(cliente_id):
 
     try:
         if not isinstance(cliente_id, int) or cliente_id <= 0:
-            logging.warning(f"ID inválido recibido: {cliente_id}")
+            logger.warning(f"ID inválido recibido: {cliente_id}")
             return response(
                 success=False,
                 message="ID de cliente inválido",
@@ -346,7 +347,7 @@ def eliminar_cliente(cliente_id):
 
         cliente = Clientes.query.get(cliente_id)
         if not cliente:
-            logging.info(f"Cliente no encontrado con ID: {cliente_id}")
+            logger.info(f"Cliente no encontrado con ID: {cliente_id}")
             return response(
                 success=False,
                 message="Cliente no encontrado",
@@ -360,7 +361,7 @@ def eliminar_cliente(cliente_id):
         db.session.delete(cliente)
         db.session.commit()
         
-        logging.info(f"Cliente eliminado exitosamente - ID: {cliente_id}")
+        logger.info(f"Cliente eliminado exitosamente - ID: {cliente_id}")
         return response(
             success=True,
             data={"id": cliente_id},
@@ -370,7 +371,7 @@ def eliminar_cliente(cliente_id):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al eliminar al cliente {cliente_id}: {str(e)}")
+        logger.error(f"Error inesperado al eliminar al cliente {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error al eliminar al cliente",
@@ -383,7 +384,7 @@ def eliminar_cliente(cliente_id):
 
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al eliminar al cliente {cliente_id}: {str(e)}")
+        logger.error(f"Error inesperado al eliminar al cliente {cliente_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",

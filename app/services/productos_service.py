@@ -7,6 +7,8 @@ from app.models import Productos
 from app.utils.create_responses import create_response as response
 from app.utils.db import db
 
+logger = logging.getLogger(__name__)
+
 def obtener_todos(pagina=1, por_pagina=10, buscar=None):
     try:
         query = Productos.query.filter(Productos.activo == True)
@@ -18,7 +20,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
         paginacion = query.paginate(page=pagina, per_page=por_pagina, error_out=False)
 
         if not paginacion.items:
-            logging.info("No hay productos para esta búsqueda/página")
+            logger.info("No hay productos para esta búsqueda/página")
             return response(
                 success=True,
                 data={
@@ -49,7 +51,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 
         
     except SQLAlchemyError as e:
-        logging.error(f"Error de base de datos al obtener los productos: {str(e)}")
+        logger.error(f"Error de base de datos al obtener los productos: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los productos",
@@ -60,7 +62,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
             status_code=500
         )
     except Exception as e:
-        logging.error(f"Error inesperado al obtener los productos: {str(e)}")
+        logger.error(f"Error inesperado al obtener los productos: {str(e)}")
         return response(
             success=False,
             message="Error al obtener los productos",
@@ -79,7 +81,7 @@ def obtener_por_id(producto_id):
 
     try:
         if not isinstance(producto_id, int) or producto_id <= 0:
-            logging.warning(f"ID inválido recibido: {producto_id}")
+            logger.warning(f"ID inválido recibido: {producto_id}")
             return response(
                 success=False,
                 message="ID de producto inválido",
@@ -93,7 +95,7 @@ def obtener_por_id(producto_id):
         producto = Productos.query.filter(Productos.id == producto_id, Productos.activo == True).first()
 
         if not producto:
-            logging.info(f"Producto no encontrado con ID: {producto_id}")
+            logger.info(f"Producto no encontrado con ID: {producto_id}")
             return response(
                 success=False,
                 message="Producto no encontrado",
@@ -104,7 +106,7 @@ def obtener_por_id(producto_id):
                 status_code=404
             )
 
-        logging.info(f"Producto encontrado - ID: {producto_id}")
+        logger.info(f"Producto encontrado - ID: {producto_id}")
         return response(
             success=True,
             data=producto.to_dict(),
@@ -113,7 +115,7 @@ def obtener_por_id(producto_id):
         )
 
     except SQLAlchemyError as e:
-        logging.error(f"Error de base de datos al buscar producto ID {producto_id}: {str(e)}")
+        logger.error(f"Error de base de datos al buscar producto ID {producto_id}: {str(e)}")
         return response(
             success=False,
             message="Error en la base de datos",
@@ -124,7 +126,7 @@ def obtener_por_id(producto_id):
             status_code=500
         )
     except Exception as e:
-        logging.error(f"Error inesperado al buscar producto ID {producto_id}: {str(e)}")
+        logger.error(f"Error inesperado al buscar producto ID {producto_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -141,7 +143,7 @@ def obtener_por_id(producto_id):
 def crear_producto(data):
     try:
         if not data or not isinstance(data, dict):
-            logging.warning("Datos de producto inválidos")
+            logger.warning("Datos de producto inválidos")
             return response(
                 success=False,
                 message="Datos de producto inválidos",
@@ -156,7 +158,7 @@ def crear_producto(data):
         precio_raw = data.get("precio")
 
         if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
-            logging.warning(f"Nombre inválido: {nombre}")
+            logger.warning(f"Nombre inválido: {nombre}")
             return response(
                 success=False,
                 message="Nombre de producto inválido",
@@ -170,7 +172,7 @@ def crear_producto(data):
         try:
             precio = Decimal(str(precio_raw))
             if precio <= 0:
-                logging.warning(f"Precio menor o igual a cero: {precio_raw}")
+                logger.warning(f"Precio menor o igual a cero: {precio_raw}")
                 return response(
                     success=False,
                     message="Precio inválido",
@@ -181,7 +183,7 @@ def crear_producto(data):
                     status_code=400
                 )
         except (InvalidOperation, TypeError):
-            logging.warning(f"Precio no válido: {precio_raw}")
+            logger.warning(f"Precio no válido: {precio_raw}")
             return response(
                 success=False,
                 message="Precio inválido",
@@ -193,7 +195,7 @@ def crear_producto(data):
             )
 
         if Productos.query.filter(Productos.nombre.ilike(nombre)).first():
-            logging.warning(f"Intento de crear producto existente: {nombre}")
+            logger.warning(f"Intento de crear producto existente: {nombre}")
             return response(
                 success=False,
                 message="El producto ya existe",
@@ -213,7 +215,7 @@ def crear_producto(data):
         db.session.add(nuevo_producto)
         db.session.commit()
 
-        logging.info(f"Producto creado exitosamente: {nombre}")
+        logger.info(f"Producto creado exitosamente: {nombre}")
         return response(
             success=True,
             data=nuevo_producto.to_dict(),
@@ -223,7 +225,7 @@ def crear_producto(data):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de base de datos al crear producto: {str(e)}")
+        logger.error(f"Error de base de datos al crear producto: {str(e)}")
         return response(
             success=False,
             message="Error al guardar el producto",
@@ -235,7 +237,7 @@ def crear_producto(data):
         )
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al crear producto: {str(e)}")
+        logger.error(f"Error inesperado al crear producto: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -251,7 +253,7 @@ def crear_producto(data):
 def actualizar_producto(producto_id, data):
     try:
         if not isinstance(producto_id, int) or producto_id <= 0:
-            logging.warning(f"ID inválido recibido: {producto_id}")
+            logger.warning(f"ID inválido recibido: {producto_id}")
             return response(
                 success=False,
                 message="ID de producto inválido",
@@ -263,7 +265,7 @@ def actualizar_producto(producto_id, data):
             )
 
         if not data or not isinstance(data, dict):
-            logging.warning("Datos de producto inválidos")
+            logger.warning("Datos de producto inválidos")
             return response(
                 success=False,
                 message="Datos de producto inválidos",
@@ -278,7 +280,7 @@ def actualizar_producto(producto_id, data):
         precio_raw = data.get("precio")
 
         if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
-            logging.warning(f"Nombre inválido: {nombre}")
+            logger.warning(f"Nombre inválido: {nombre}")
             return response(
                 success=False,
                 message="Nombre de producto inválido",
@@ -292,7 +294,7 @@ def actualizar_producto(producto_id, data):
         try:
             precio = Decimal(str(precio_raw))
             if precio <= 0:
-                logging.warning(f"Precio menor o igual a cero: {precio_raw}")
+                logger.warning(f"Precio menor o igual a cero: {precio_raw}")
                 return response(
                     success=False,
                     message="Precio inválido",
@@ -303,7 +305,7 @@ def actualizar_producto(producto_id, data):
                     status_code=400
                 )
         except (InvalidOperation, TypeError):
-            logging.warning(f"Precio no válido: {precio_raw}")
+            logger.warning(f"Precio no válido: {precio_raw}")
             return response(
                 success=False,
                 message="Precio inválido",
@@ -316,7 +318,7 @@ def actualizar_producto(producto_id, data):
 
         producto = Productos.query.get(producto_id)
         if not producto:
-            logging.warning(f"Producto no encontrado con ID: {producto_id}")
+            logger.warning(f"Producto no encontrado con ID: {producto_id}")
             return response(
                 success=False,
                 message="Producto no encontrado",
@@ -328,7 +330,7 @@ def actualizar_producto(producto_id, data):
             )
 
         if Productos.query.filter(Productos.nombre.ilike(nombre), Productos.id != producto_id).first():
-            logging.warning(f"Ya existe otro producto con el nombre: {nombre}")
+            logger.warning(f"Ya existe otro producto con el nombre: {nombre}")
             return response(
                 success=False,
                 message="El producto ya existe",
@@ -343,7 +345,7 @@ def actualizar_producto(producto_id, data):
         producto.precio = precio
         db.session.commit()
 
-        logging.info(f"Producto actualizado exitosamente: ID {producto_id}")
+        logger.info(f"Producto actualizado exitosamente: ID {producto_id}")
         return response(
             success=True,
             data=producto.to_dict(),
@@ -353,7 +355,7 @@ def actualizar_producto(producto_id, data):
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error de base de datos al actualizar producto: {str(e)}")
+        logger.error(f"Error de base de datos al actualizar producto: {str(e)}")
         return response(
             success=False,
             message="Error al actualizar el producto",
@@ -365,7 +367,7 @@ def actualizar_producto(producto_id, data):
         )
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al actualizar producto: {str(e)}")
+        logger.error(f"Error inesperado al actualizar producto: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
@@ -382,7 +384,7 @@ def eliminar(producto_id):
 
     try:
         if not isinstance(producto_id, int) or producto_id <= 0:
-            logging.warning(f"ID inválido recibido: {producto_id}")
+            logger.warning(f"ID inválido recibido: {producto_id}")
             return response(
                 success=False,
                 message="ID de producto inválido",
@@ -395,7 +397,7 @@ def eliminar(producto_id):
 
         producto = Productos.query.get(producto_id)
         if not producto:
-            logging.warning(f"Producto no encontrado con ID: {producto_id}")
+            logger.warning(f"Producto no encontrado con ID: {producto_id}")
             return response(
                 success=False,
                 message="Producto no encontrado",
@@ -409,7 +411,7 @@ def eliminar(producto_id):
         db.session.delete(producto)
         db.session.commit()
 
-        logging.info(f"Producto eliminado exitosamente - ID: {producto_id}")
+        logger.info(f"Producto eliminado exitosamente - ID: {producto_id}")
         return response(
             success=True,
             data={"id": producto_id},
@@ -418,7 +420,7 @@ def eliminar(producto_id):
         )
     except SQLAlchemyError as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
+        logger.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
         return response(
             success=False,
             message="Error al eliminar al producto",
@@ -431,7 +433,7 @@ def eliminar(producto_id):
 
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
+        logger.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",
