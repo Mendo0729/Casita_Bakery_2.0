@@ -45,7 +45,7 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
                     "total_paginas": paginacion.pages,
                     "total_clientes": paginacion.total
                 },
-                message="No hay productos en esta página o búsqueda",
+                message="No hay clientes en esta página o búsqueda",
                 status_code=200
             )
 
@@ -90,22 +90,16 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 
 #-----------------------------------------------------------------------------------------
 
-def obtener_cliente_por_id(cliente_id):
-    
-    try:
-        if not isinstance(cliente_id, int) or cliente_id <= 0:
-            logging.warning(f"ID inválido recibido: {cliente_id}")
-            return response(
-                success=False,
-                message="ID de cliente inválido",
-                errors={
-                    "code": "invalid_input",
-                    "detail": "El ID debe ser un entero positivo"
-                },
-                status_code=400
-            )
+def obtener_cliente_modelo_por_id(cliente_id):
+    """Retorna el objeto Cliente si existe, de lo contrario None."""
+    if not isinstance(cliente_id, int) or cliente_id <= 0:
+        logging.warning(f"ID inválido recibido: {cliente_id}")
+        return None
+    return Clientes.query.get(cliente_id)
 
-        cliente = Clientes.query.get(cliente_id)
+def obtener_cliente_por_id(cliente_id):
+    try:
+        cliente = obtener_cliente_modelo_por_id(cliente_id)
 
         if not cliente:
             logging.info(f"Cliente no encontrado con ID: {cliente_id}")
@@ -119,16 +113,13 @@ def obtener_cliente_por_id(cliente_id):
                 status_code=404
             )
 
-        serializacion_clientes = [cliente.to_dict() for cliente in cliente]
-
-        logging.info(f"Cliente encontrado - ID: {cliente_id}")
         return response(
             success=True,
-            data=serializacion_clientes,  # Serializa el objeto individual
+            data=cliente.to_dict(),
             message="Cliente obtenido correctamente",
             status_code=200
         )
-        
+
     except SQLAlchemyError as e:
         logging.error(f"Error de base de datos al buscar cliente ID {cliente_id}: {str(e)}")
         return response(
@@ -151,6 +142,7 @@ def obtener_cliente_por_id(cliente_id):
             },
             status_code=500
         )
+
 
 #------------------------------------------------------------------------------------------
 
@@ -390,7 +382,7 @@ def eliminar_cliente(cliente_id):
         )
 
     except Exception as e:
-        db.session.reollback()
+        db.session.rollback()
         logging.error(f"Error inesperado al eliminar al cliente {cliente_id}: {str(e)}")
         return response(
             success=False,

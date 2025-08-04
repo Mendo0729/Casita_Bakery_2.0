@@ -5,13 +5,6 @@ from .models import Usuario
 from flask_migrate import Migrate
 from config import Config
 
-from .routes.clientes import clientes
-from .routes.productos import productos
-from .routes.pedidos import pedidos
-from .routes.inventario import inventario
-from .routes.recetas import recetas
-from .routes.dashboard import dashboard
-from .routes.main import main
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -53,20 +46,5 @@ def create_app():
     login_manager.init_app(app)
 
     # Blueprints
-    app.register_blueprint(main)
-    app.register_blueprint(clientes)
-    app.register_blueprint(productos)
-    app.register_blueprint(pedidos)
-    app.register_blueprint(dashboard)
-    # app.register_blueprint(inventario)
-    # app.register_blueprint(recetas)
-
-    @app.errorhandler(404)
-    def pagina_no_encontrada(error):
-        return render_template("errors/404.html"), 404
-
-    @app.errorhandler(500)
-    def error_interno(error):
-        return render_template("errors/500.html"), 500
 
     return app

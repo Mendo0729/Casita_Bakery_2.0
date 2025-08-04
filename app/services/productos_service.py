@@ -90,7 +90,7 @@ def obtener_por_id(producto_id):
                 status_code=400
             )
 
-        producto = Productos.query.get(producto_id, active=True).first()
+        producto = Productos.query.filter(Productos.id == producto_id, Productos.activo == True).first()
 
         if not producto:
             logging.info(f"Producto no encontrado con ID: {producto_id}")
