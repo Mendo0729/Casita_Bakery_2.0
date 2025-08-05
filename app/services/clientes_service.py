@@ -29,7 +29,9 @@ def obtener_todos(pagina=1, por_pagina=10, buscar=None):
 
         query = Clientes.query.filter(Clientes.activo == True)
 
-        if buscar:
+        if buscar is not None and buscar.strip():
+            buscar = buscar.strip()
+            logger.info(f"Aplicando búsqueda por nombre: {buscar}")
             query = query.filter(Clientes.nombre.ilike(f"%{buscar}%"))
 
         query = query.order_by(Clientes.id.desc())

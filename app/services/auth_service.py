@@ -55,7 +55,7 @@ def validacion_usuario(username, password):
         logger.info(f"Usuario autenticado exitosamente: {username}")
         return response(
             success=True,
-            data=user.to_dict,
+            data=user.to_dict(),
             message="Usuario autenticado exitosamente",
             status_code=200
         )

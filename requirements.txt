@@ -1,5 +1,7 @@
 # === Flask Core ===
 Flask>=2.3.0
+Flask-JWT-Extended
+Flask-Cors==3.0.10
 
 # === Formularios y Validaciones ===
 Flask-WTF>=1.1.1
