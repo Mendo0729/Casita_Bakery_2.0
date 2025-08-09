@@ -36,3 +36,71 @@ def listar_clientes():
 def obtener_por_id(cliente_id):
     result = obtener_cliente_por_id(cliente_id = cliente_id)
     return jsonify(result), result.get("status_code", 200)
+
+@cliente_api.route('/', methods=['POST'])
+@jwt_required()
+def crear_cliente_api():
+    try:
+        datos = request.get_json()
+
+        if not datos:
+            return jsonify({
+                "success": False,
+                "message": "El cuerpo de la solicitud debe ser JSON válido",
+                "errors": {"request": "Body vacío o formato inválido"},
+                "status_code": 400
+            }), 400
+
+        result = crear_cliente(datos)
+        return jsonify(result), result.get("status_code", 201)
+
+    except Exception as e:
+        logger.error(f"Error en endpoint de creación: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": "Error procesando la solicitud",
+            "errors": {"request": "Error en los datos de entrada"},
+            "status_code": 500
+        }), 500
+    
+
+@cliente_api.route('/<int:cliente_id>', methods=['PUT'])
+@jwt_required()
+def actualizar_cliente_api(cliente_id):
+    try:
+        datos = request.get_json()
+
+        if not datos:
+            return jsonify({
+                "success": False,
+                "message": "El cuerpo de la solicitud debe ser JSON válido",
+                "errors": {"request": "Body vacío o formato inválido"},
+                "status_code": 400
+            }), 400
+        
+        result = actualizar_cliente(cliente_id = cliente_id, data = datos)
+        return jsonify(result), result.get("status_code", 200)
+    
+    except Exception as e:
+        logger.error(f"Error en endpoint de actualizacion: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": "Error procesando la solicitud",
+            "errors": {"request": "Error en los datos de entrada"},
+            "status_code": 500
+        }), 500
+
+@cliente_api.route('/<int:cliente_id>', methods=['DELETE'])
+@jwt_required()
+def eliminar_cliente_api(cliente_id):
+    try:
+        result = eliminar_cliente(cliente_id)
+        return jsonify(result), result.get("status_code", 200)
+    except Exception as e:
+        logger.error(f"Error en endpoint de eliminar cliente {cliente_id}: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": "Error interno del servidor",
+            "errors": {"server_error": "Error al procesar la solicitud"},
+            "status_code": 500
+        }), 500

@@ -11,3 +11,26 @@
 {"timestamp": "2025-08-04 20:53:29,467", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-04 20:53:29,469", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [04/Aug/2025 20:53:29] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-04 20:53:50,890", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [04/Aug/2025 20:53:50] \"GET /cliente/api/3 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:53:32,757", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:53:32,759", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:53:47,760", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:53:47,764", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:53:47] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:54:10,419", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:54:10] \"GET /cliente/api/3 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:55:56,276", "level": "INFO", "module": "clientes_service", "message": "Cliente 3 actualizado de 'Abdiel Mendoza' a 'Abdiel Mendoza'", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:55:56,279", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:55:56] \"PUT /cliente/api/3 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:10,982", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:56:10] \"\u001b[31m\u001b[1mGET /cliente/api/ HTTP/1.1\u001b[0m\" 401 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:23,143", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:56:23] \"\u001b[31m\u001b[1mGET /cliente/api/ HTTP/1.1\u001b[0m\" 401 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:38,755", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:38,772", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:56:38] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:59,332", "level": "INFO", "module": "clientes_service", "message": "Cliente eliminado exitosamente - ID: 1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:56:59,333", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:56:59] \"\u001b[35m\u001b[1mDELETE /cliente/api/1 HTTP/1.1\u001b[0m\" 204 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:57:11,993", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:57:12,001", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:57:12] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:59:38,866", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:59:38,867", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:59:46,943", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 22:59:46,947", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 22:59:46] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 23:00:01,072", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 23:00:01,089", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 23:00:01] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 23:00:25,835", "level": "INFO", "module": "clientes_service", "message": "Cliente eliminado exitosamente - ID: 5", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-08 23:00:25,837", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 23:00:25] \"DELETE /cliente/api/5 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}

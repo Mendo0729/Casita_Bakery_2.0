@@ -297,7 +297,7 @@ def actualizar_cliente(cliente_id, data):
         cliente.nombre = nuevo_nombre
         db.session.commit()
 
-        logger.info(f"Cliente {cliente_id} actualizado correctamente")
+        logger.info(f"Cliente {cliente_id} actualizado de '{cliente.nombre}' a '{nuevo_nombre}'")
         return response(
             success=True,
             data=cliente.to_dict(),
@@ -368,7 +368,7 @@ def eliminar_cliente(cliente_id):
             success=True,
             data={"id": cliente_id},
             message="Cliente eliminado exitosamente",
-            status_code=204 
+            status_code=200
         )
 
     except SQLAlchemyError as e:
