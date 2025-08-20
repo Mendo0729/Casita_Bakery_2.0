@@ -276,46 +276,6 @@ def actualizar_producto(producto_id, data):
                 status_code=400
             )
 
-        nombre = data.get("nombre", "").strip()
-        precio_raw = data.get("precio")
-
-        if not nombre or not isinstance(nombre, str) or len(nombre) > 100:
-            logger.warning(f"Nombre inválido: {nombre}")
-            return response(
-                success=False,
-                message="Nombre de producto inválido",
-                errors={
-                    "code": "invalid_input",
-                    "detail": "El nombre debe ser una cadena no vacía (máx 100 caracteres)"
-                },
-                status_code=400
-            )
-
-        try:
-            precio = Decimal(str(precio_raw))
-            if precio <= 0:
-                logger.warning(f"Precio menor o igual a cero: {precio_raw}")
-                return response(
-                    success=False,
-                    message="Precio inválido",
-                    errors={
-                        "code": "invalid_input",
-                        "detail": "El precio debe ser un número decimal mayor a 0"
-                    },
-                    status_code=400
-                )
-        except (InvalidOperation, TypeError):
-            logger.warning(f"Precio no válido: {precio_raw}")
-            return response(
-                success=False,
-                message="Precio inválido",
-                errors={
-                    "code": "invalid_input",
-                    "detail": "El precio debe ser un número decimal válido"
-                },
-                status_code=400
-            )
-
         producto = Productos.query.get(producto_id)
         if not producto:
             logger.warning(f"Producto no encontrado con ID: {producto_id}")
@@ -329,20 +289,71 @@ def actualizar_producto(producto_id, data):
                 status_code=404
             )
 
-        if Productos.query.filter(Productos.nombre.ilike(nombre), Productos.id != producto_id).first():
-            logger.warning(f"Ya existe otro producto con el nombre: {nombre}")
-            return response(
-                success=False,
-                message="El producto ya existe",
-                errors={
-                    "code": "already_exists",
-                    "detail": f"Ya existe otro producto con el nombre '{nombre}'"
-                },
-                status_code=409
-            )
+        # --- Validaciones y actualizaciones parciales ---
+        if "nombre" in data:
+            nombre = str(data["nombre"]).strip()
+            if not nombre or len(nombre) > 100:
+                logger.warning(f"Nombre inválido: {nombre}")
+                return response(
+                    success=False,
+                    message="Nombre de producto inválido",
+                    errors={
+                        "code": "invalid_input",
+                        "detail": "El nombre debe ser una cadena no vacía (máx 100 caracteres)"
+                    },
+                    status_code=400
+                )
 
-        producto.nombre = nombre
-        producto.precio = precio
+            # Verificar duplicados si se cambió el nombre
+            if Productos.query.filter(Productos.nombre.ilike(nombre), Productos.id != producto_id).first():
+                logger.warning(f"Ya existe otro producto con el nombre: {nombre}")
+                return response(
+                    success=False,
+                    message="El producto ya existe",
+                    errors={
+                        "code": "already_exists",
+                        "detail": f"Ya existe otro producto con el nombre '{nombre}'"
+                    },
+                    status_code=409
+                )
+
+            producto.nombre = nombre
+
+        if "precio" in data:
+            precio_raw = data["precio"]
+            try:
+                precio = Decimal(str(precio_raw))
+                if precio <= 0:
+                    logger.warning(f"Precio menor o igual a cero: {precio_raw}")
+                    return response(
+                        success=False,
+                        message="Precio inválido",
+                        errors={
+                            "code": "invalid_input",
+                            "detail": "El precio debe ser un número decimal mayor a 0"
+                        },
+                        status_code=400
+                    )
+                producto.precio = precio
+            except (InvalidOperation, TypeError):
+                logger.warning(f"Precio no válido: {precio_raw}")
+                return response(
+                    success=False,
+                    message="Precio inválido",
+                    errors={
+                        "code": "invalid_input",
+                        "detail": "El precio debe ser un número decimal válido"
+                    },
+                    status_code=400
+                )
+
+        if "descripcion" in data:
+            producto.descripcion = str(data["descripcion"]).strip()
+
+        if "activo" in data:
+            producto.activo = bool(data["activo"])
+
+        # --- Guardar cambios ---
         db.session.commit()
 
         logger.info(f"Producto actualizado exitosamente: ID {producto_id}")
@@ -377,6 +388,7 @@ def actualizar_producto(producto_id, data):
             },
             status_code=500
         )
+
 
 #----------------------------------------------------------------------------------------------------------------------------------
 

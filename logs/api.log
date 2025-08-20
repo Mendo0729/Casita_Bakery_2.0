@@ -34,3 +34,82 @@
 {"timestamp": "2025-08-08 23:00:01,089", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 23:00:01] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-08 23:00:25,835", "level": "INFO", "module": "clientes_service", "message": "Cliente eliminado exitosamente - ID: 5", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-08 23:00:25,837", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [08/Aug/2025 23:00:25] \"DELETE /cliente/api/5 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-12 11:24:34,139", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:24:34,141", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:29:21,140", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:29:21,145", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:29:21] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:29:43,146", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:29:43,196", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:29:43] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:30:03,204", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:30:03] \"\u001b[33mGET /productos/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:30:16,787", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:30:16] \"\u001b[33mGET /producto/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:31:46,251", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:31:46,252", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:31:54,129", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:31:54,133", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:31:54] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:32:10,455", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:32:10] \"\u001b[33mGET /producto/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:32:38,236", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:32:38] \"\u001b[33mGET /producto/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:20,883", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:20,885", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:41,284", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:41,288", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:38:41] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:54,072", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:38:54,092", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:38:54] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:40:13,633", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar='Brownies'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:40:13,659", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:40:13] \"GET /producto/api/?pagina=1&por_pagina=10&buscar=Brownies HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:43:55,530", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:43:55] \"\u001b[33mGET /producto/api/1 HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:11,597", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:11,598", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:19,775", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:19,781", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:44:19] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:30,925", "level": "ERROR", "module": "app", "message": "Exception on /producto/api/1 [GET]", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:44:30,966", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:44:30] \"\u001b[35m\u001b[1mGET /producto/api/1 HTTP/1.1\u001b[0m\" 500 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:08,126", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:08,127", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:17,656", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:17,663", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:45:17] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:30,789", "level": "INFO", "module": "productos_service", "message": "Producto encontrado - ID: 1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:30,793", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:45:30] \"GET /producto/api/1 HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:40,987", "level": "INFO", "module": "productos_service", "message": "Producto no encontrado con ID: 6", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:40,990", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:45:40] \"\u001b[33mGET /producto/api/6 HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:53,114", "level": "INFO", "module": "productos_service", "message": "Producto encontrado - ID: 4", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-12 11:45:53,118", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [12/Aug/2025 11:45:53] \"GET /producto/api/4 HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-19 20:15:20,941", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:15:20,962", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:19:11,948", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:19:11,957", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:19:11] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:19:48,308", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:19:48,367", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:19:48] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:20:09,002", "level": "INFO", "module": "productos_service", "message": "Producto eliminado exitosamente - ID: 1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:20:09,003", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:20:09] \"DELETE /producto/api/1 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:20:33,866", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:20:33,875", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:20:33] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:21:37,629", "level": "ERROR", "module": "productos_api", "message": "Error en endpoint de actualizacion: actualizar_producto() missing 1 required positional argument: 'data'", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:21:37,630", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:21:37] \"\u001b[35m\u001b[1mPUT /producto/api/4 HTTP/1.1\u001b[0m\" 500 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:25:49,771", "level": "ERROR", "module": "productos_api", "message": "Error en endpoint de actualizacion: actualizar_producto() missing 1 required positional argument: 'data'", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:25:49,774", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:25:49] \"\u001b[35m\u001b[1mPUT /producto/api/4 HTTP/1.1\u001b[0m\" 500 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:27:01,843", "level": "ERROR", "module": "productos_api", "message": "Error en endpoint de actualizacion: actualizar_producto() missing 1 required positional argument: 'data'", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:27:01,844", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:27:01] \"\u001b[35m\u001b[1mPUT /producto/api/4 HTTP/1.1\u001b[0m\" 500 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:29:54,749", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:29:54,750", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:30:04,753", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:30:04,756", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:30:04] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:30:25,427", "level": "ERROR", "module": "productos_api", "message": "Error en endpoint de actualizacion: actualizar_producto() got an unexpected keyword argument 'datos'. Did you mean 'data'?", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:30:25,428", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:30:25] \"\u001b[35m\u001b[1mPUT /producto/api/4 HTTP/1.1\u001b[0m\" 500 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:16,145", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:16,147", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:24,824", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:24,828", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:31:24] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:41,419", "level": "WARNING", "module": "productos_service", "message": "Nombre inv\u00e1lido: ", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:31:41,420", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:31:41] \"\u001b[31m\u001b[1mPUT /producto/api/4 HTTP/1.1\u001b[0m\" 400 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:40:52,715", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:40:52,794", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:40:52] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:41:15,404", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:41:15,419", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:41:15] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:41:53,415", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:41:53,416", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:07,356", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:07,358", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:42:07] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:20,850", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:20,869", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:42:20] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:33,438", "level": "INFO", "module": "productos_service", "message": "Producto actualizado exitosamente: ID 4", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-19 20:42:33,445", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:42:33] \"PUT /producto/api/4 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}

@@ -76,9 +76,11 @@ def create_app():
     # Registrar blueprints solo API
     from app.routes.api.auth_api import auth_api
     from app.routes.api.clientes_api import cliente_api
+    from app.routes.api.productos_api import productos_api
 
     app.register_blueprint(auth_api)
     app.register_blueprint(cliente_api)
+    app.register_blueprint(productos_api)
 
     # Crear tablas solo si estás en desarrollo
     with app.app_context():
