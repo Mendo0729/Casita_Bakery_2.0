@@ -94,6 +94,51 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
             },
             status_code=500
         )
+    
+#----------------------------------------------------------------------------------------------
+
+def obtener_por_id(pedido_id):
+    try:
+        pedido = Pedidos.query.get(pedido_id)
+        if not pedido:
+            return response(
+                success=False,
+                message="Pedido no encontrado",
+                errors={"code": "not_found", "detail": f"No existe pedido con ID {pedido_id}"},
+                status_code=404
+            )
+
+        pedido_dict = pedido.to_dict()
+
+
+        detalles = []
+        for d in pedido.detalles: 
+            detalles.append({
+                "producto_id": d.producto_id,
+                "nombre_producto": d.producto.nombre if d.producto else None,
+                "cantidad": d.cantidad,
+                "precio_unitario": str(d.precio_unitario),
+                "subtotal": str(d.subtotal)
+            })
+
+        pedido_dict["detalles"] = detalles
+
+        return response(
+            success=True,
+            data=pedido_dict,
+            message="Pedido obtenido correctamente",
+            status_code=200
+        )
+
+    except Exception as e:
+        logger.error(f"Error al obtener pedido: {str(e)}")
+        return response(
+            success=False,
+            message="Error interno del servidor",
+            errors={"code": "internal_server_error", "detail": str(e)},
+            status_code=500
+        )
+
 
 #----------------------------------------------------------------------------------------------
 
@@ -133,7 +178,7 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
             total=Decimal('0.00')
         )
         db.session.add(nuevo_pedido)
-        db.session.flush()  # Para obtener el ID del nuevo pedido
+        db.session.flush()
 
         total = Decimal('0.00')
         detalles = []
@@ -225,22 +270,12 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
             status_code=500
         )
 
-
 #----------------------------------------------------------------------------------------------
 
-def cambiar_estado(pedido_id, estado):
-
+def actualizar_pedido(pedido_id, datos):
     try:
-        if not isinstance(pedido_id, int) or pedido_id <= 0:
-            return response(
-                success=False,
-                message="ID de pedido inválido",
-                errors={"code": "invalid_input", "detail": "El ID debe ser un entero positivo"},
-                status_code=400
-            )
-
+        # Buscar el pedido
         pedido = Pedidos.query.get(pedido_id)
-
         if not pedido:
             return response(
                 success=False,
@@ -248,41 +283,120 @@ def cambiar_estado(pedido_id, estado):
                 errors={"code": "not_found", "detail": f"No existe pedido con ID {pedido_id}"},
                 status_code=404
             )
-
-        estado = estado.lower().strip()
-
-        estados_validos = ['pendiente', 'entregado', 'cancelado']
-        if estado not in estados_validos:
+        
+        if pedido.estado != "pendiente":
             return response(
                 success=False,
-                message="Estado inválido",
-                errors={"code": "invalid_state", "detail": f"Estado '{estado}' no permitido"},
-                status_code=400
+                message="El pedido no se puede modificar",
+                errors={
+                    "code": "forbidden",
+                    "detail": f"El pedido está en estado '{pedido.estado}' y no puede ser modificado"
+                },
+                status_code=403
             )
 
-        pedido.estado = estado
+        # Actualizar fecha_entrega si viene
+        if 'fecha_entrega' in datos:
+            pedido.fecha_entrega = datos['fecha_entrega']
+
+        # Actualizar estado si viene
+        if 'estado' in datos:
+            if datos['estado'] not in ['pendiente', 'entregado', 'cancelado']:
+                return response(
+                    success=False,
+                    message="Estado inválido",
+                    errors={"code": "invalid_status", "detail": "Estado debe ser pendiente, entregado o cancelado"},
+                    status_code=400
+                )
+            pedido.estado = datos['estado']
+
+        # Si viene productos_seleccionados, actualizamos los detalles
+        if 'productos_seleccionados' in datos:
+            productos_seleccionados = datos['productos_seleccionados']
+            if not isinstance(productos_seleccionados, list) or not productos_seleccionados:
+                return response(
+                    success=False,
+                    message="Lista de productos inválida o vacía",
+                    errors={"code": "invalid_data", "detail": "Debes seleccionar al menos un producto"},
+                    status_code=400
+                )
+
+            # Eliminar los detalles actuales del pedido
+            DetallePedido.query.filter_by(pedido_id=pedido.id).delete()
+
+            total = Decimal('0.00')
+            nuevos_detalles = []
+
+            for item in productos_seleccionados:
+                producto_id = item.get('producto_id')
+                cantidad = item.get('cantidad')
+
+                if not producto_id or not cantidad:
+                    db.session.rollback()
+                    return response(
+                        success=False,
+                        message="Datos de producto incompletos",
+                        errors={"code": "invalid_data", "detail": "Cada producto debe tener ID y cantidad"},
+                        status_code=400
+                    )
+
+                producto = Productos.query.get(producto_id)
+                if not producto or not producto.activo:
+                    db.session.rollback()
+                    return response(
+                        success=False,
+                        message=f"Producto no disponible: ID {producto_id}",
+                        errors={"code": "invalid_product", "detail": f"Producto {producto_id} no encontrado o inactivo"},
+                        status_code=400
+                    )
+
+                cantidad = int(cantidad)
+                if cantidad <= 0:
+                    db.session.rollback()
+                    return response(
+                        success=False,
+                        message="Cantidad inválida",
+                        errors={"code": "invalid_quantity", "detail": "La cantidad debe ser mayor a cero"},
+                        status_code=400
+                    )
+
+                precio_unitario = Decimal(str(producto.precio))
+                subtotal = precio_unitario * cantidad
+
+                nuevos_detalles.append(DetallePedido(
+                    pedido_id=pedido.id,
+                    producto_id=producto.id,
+                    cantidad=cantidad,
+                    precio_unitario=precio_unitario,
+                    subtotal=subtotal
+                ))
+                total += subtotal
+
+            pedido.total = total
+            db.session.add_all(nuevos_detalles)
+
+        # Guardar cambios
         db.session.commit()
 
         return response(
             success=True,
-            message=f"Estado del pedido actualizado a '{estado}'",
+            message="Pedido actualizado correctamente",
             data=pedido.to_dict(),
             status_code=200
         )
 
     except SQLAlchemyError as e:
         db.session.rollback()
-        logger.error(f"Error de base de datos al cambiar estado del pedido {pedido_id}: {str(e)}")
+        logger.error(f"Error de base de datos al actualizar el pedido: {str(e)}")
         return response(
             success=False,
-            message="Error de base de datos al actualizar el pedido",
-            errors={"code": "database_error", "detail": "No se pudo guardar el nuevo estado"},
+            message="Error al actualizar el pedido",
+            errors={"code": "database_error", "detail": "Error en la base de datos"},
             status_code=500
         )
-
     except Exception as e:
         db.session.rollback()
-        logger.error(f"Error inesperado al cambiar estado del pedido {pedido_id}: {str(e)}")
+        logger.error(f"Error inesperado al actualizar el pedido: {str(e)}")
         return response(
             success=False,
             message="Error interno del servidor",

@@ -113,3 +113,43 @@
 {"timestamp": "2025-08-19 20:42:20,869", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:42:20] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-19 20:42:33,438", "level": "INFO", "module": "productos_service", "message": "Producto actualizado exitosamente: ID 4", "ip": "100.89.177.19"}
 {"timestamp": "2025-08-19 20:42:33,445", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [19/Aug/2025 20:42:33] \"PUT /producto/api/4 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-23 11:13:13,770", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:13:13,777", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:14:08,305", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:14:08,307", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:16:02,236", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:16:02,244", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:16:02] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:16:33,058", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:16:33] \"\u001b[31m\u001b[1mGET /producto/api/ HTTP/1.1\u001b[0m\" 422 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:16:46,603", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:16:46,654", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:16:46] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:17:40,444", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:17:40] \"\u001b[33mGET /pedido/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:18:00,819", "level": "DEBUG", "module": "pedidos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar_estado='None', buscar_clientes='None'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:18:00,871", "level": "INFO", "module": "pedidos_service", "message": "No hay Pedidos para esta b\u00fasqueda/p\u00e1gina", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:18:00,873", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:18:00] \"GET /pedidos/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:22:18,541", "level": "DEBUG", "module": "clientes_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:22:18,589", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:22:18] \"GET /cliente/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:23:26,980", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:23:26] \"\u001b[35m\u001b[1mPOST /pedidos/api/ HTTP/1.1\u001b[0m\" 201 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:24:32,738", "level": "DEBUG", "module": "pedidos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar_estado='None', buscar_clientes='None'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:24:32,755", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:24:32] \"GET /pedidos/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:29:48,497", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:29:48] \"\u001b[31m\u001b[1mPUT /pedidos/api/ HTTP/1.1\u001b[0m\" 405 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:07,149", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:07,150", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:15,662", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:15,668", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:40:15] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:45,245", "level": "DEBUG", "module": "pedidos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar_estado='None', buscar_clientes='None'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:40:45,298", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:40:45] \"GET /pedidos/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:41:29,665", "level": "DEBUG", "module": "pedidos_api", "message": "Obteniendo pedido con ID: 1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:41:29,679", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:41:29] \"GET /pedidos/api/1 HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:42:01,137", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:42:01] \"PUT /pedidos/api/1 HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:44:40,156", "level": "DEBUG", "module": "productos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar=''", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:44:40,169", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:44:40] \"GET /producto/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:44:57,984", "level": "DEBUG", "module": "pedidos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar_estado='None', buscar_clientes='None'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:44:58,001", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:44:58] \"GET /pedidos/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:48:21,498", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:48:21] \"PUT /pedidos/api/1 HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:48:30,484", "level": "DEBUG", "module": "pedidos_api", "message": "Par\u00e1metros recibidos: pagina=1, por_pagina=10, buscar_estado='None', buscar_clientes='None'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:48:30,518", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:48:30] \"GET /pedidos/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:53:20,222", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:53:20,228", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:53:29,140", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:53:29,143", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:53:29] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-23 11:55:03,188", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:55:03] \"\u001b[31m\u001b[1mPUT /pedidos/api/1 HTTP/1.1\u001b[0m\" 403 -", "ip": "10.2.0.2"}
