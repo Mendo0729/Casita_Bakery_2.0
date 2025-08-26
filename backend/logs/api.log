@@ -183,3 +183,11 @@
 {"timestamp": "2025-08-26 12:56:32,736", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:32] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-26 12:56:51,052", "level": "WARNING", "module": "inventario_service", "message": "Nombre de ingrediente inv\u00e1lido", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-26 12:56:51,055", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:51] \"\u001b[31m\u001b[1mPUT /inventario/api/8 HTTP/1.1\u001b[0m\" 400 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 13:00:34,395", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:00:34,396", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:00:43,230", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:00:43,234", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 13:00:43] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:00:56,623", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 13:00:56] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:01:11,935", "level": "INFO", "module": "inventario_service", "message": "Ingrediente actualizado exitosamente - ID 8", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:01:11,942", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 13:01:11] \"PUT /inventario/api/8 HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-26 13:01:23,260", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 13:01:23] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
