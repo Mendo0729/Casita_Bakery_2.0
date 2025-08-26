@@ -275,56 +275,64 @@ def actualizar_ingrediente(ingrediente_id, data):
                 status_code=404
             )
 
-        # Obtener valores
-        nombre = data.get("nombre", "").strip()
-        cantidad = data.get("cantidad", 0)
-        unidad_medida = data.get("unidad_medida", "unidades")
-        punto_reorden = data.get("punto_reorden", 5.00)
+        # === Validar y asignar nombre solo si viene en la petición ===
+        if "nombre" in data:
+            nuevo_nombre = data.get("nombre", "").strip()
+            if not nuevo_nombre:
+                return response(
+                    success=False,
+                    message="Nombre de ingrediente inválido",
+                    errors={"code": "invalid_input", "detail": "Se esperaba un nombre de ingrediente no vacío"},
+                    status_code=400
+                )
 
-        # Validaciones de nombre
-        if not nombre:
-            logger.warning("Nombre de ingrediente inválido")
-            return response(
-                success=False,
-                message="Nombre de ingrediente inválido",
-                errors={"code": "invalid_input", "detail": "Se esperaba un nombre de ingrediente no vacío"},
-                status_code=400
-            )
+            # Verificar duplicados
+            existente = Ingrediente.query.filter_by(nombre=nuevo_nombre).first()
+            if existente and existente.id != ingrediente_id:
+                return response(
+                    success=False,
+                    message="Ingrediente ya existe",
+                    errors={"code": "duplicate_entry", "detail": f"Ya existe un ingrediente con el nombre '{nuevo_nombre}'"},
+                    status_code=409
+                )
 
-        # Validación numérica
-        try:
-            cantidad = float(cantidad)
-            punto_reorden = float(punto_reorden)
-        except ValueError:
-            return response(
-                success=False,
-                message="Cantidad o punto de reorden inválidos",
-                errors={"code": "invalid_input", "detail": "Cantidad y punto de reorden deben ser numéricos"},
-                status_code=400
-            )
-        if cantidad < 0 or punto_reorden < 0:
-            return response(
-                success=False,
-                message="Valores inválidos",
-                errors={"code": "invalid_input", "detail": "Cantidad y punto de reorden deben ser mayores o iguales a 0"},
-                status_code=400
-            )
+            ingrediente.nombre = nuevo_nombre
 
-        # Evitar duplicados
-        existente = Ingrediente.query.filter_by(nombre=nombre).first()
-        if existente and existente.id != ingrediente_id:
-            return response(
-                success=False,
-                message="Ingrediente ya existe",
-                errors={"code": "duplicate_entry", "detail": f"Ya existe un ingrediente con el nombre '{nombre}'"},
-                status_code=409
-            )
+        # === Validar y asignar cantidad si viene ===
+        if "cantidad" in data:
+            try:
+                cantidad = float(data["cantidad"])
+                if cantidad < 0:
+                    raise ValueError
+                ingrediente.cantidad = cantidad
+            except (ValueError, TypeError):
+                return response(
+                    success=False,
+                    message="Cantidad inválida",
+                    errors={"code": "invalid_input", "detail": "Cantidad debe ser un número mayor o igual a 0"},
+                    status_code=400
+                )
 
-        # Asignar nuevos valores
-        ingrediente.nombre = nombre
-        ingrediente.cantidad = cantidad
-        ingrediente.unidad_medida = unidad_medida
-        ingrediente.punto_reorden = punto_reorden
+        # === Validar y asignar unidad_medida si viene ===
+        if "unidad_medida" in data:
+            unidad_medida = data.get("unidad_medida", "").strip()
+            if unidad_medida:
+                ingrediente.unidad_medida = unidad_medida
+
+        # === Validar y asignar punto_reorden si viene ===
+        if "punto_reorden" in data:
+            try:
+                punto_reorden = float(data["punto_reorden"])
+                if punto_reorden < 0:
+                    raise ValueError
+                ingrediente.punto_reorden = punto_reorden
+            except (ValueError, TypeError):
+                return response(
+                    success=False,
+                    message="Punto de reorden inválido",
+                    errors={"code": "invalid_input", "detail": "Punto de reorden debe ser un número mayor o igual a 0"},
+                    status_code=400
+                )
 
         db.session.commit()
         logger.info(f"Ingrediente actualizado exitosamente - ID {ingrediente_id}")
@@ -353,6 +361,7 @@ def actualizar_ingrediente(ingrediente_id, data):
             errors={"code": "internal_server_error", "detail": "Error interno del servidor"},
             status_code=500
         )
+
 
 
 """def eliminar_ingrediente(ingrediente_id):

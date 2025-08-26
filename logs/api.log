@@ -169,3 +169,17 @@
 {"timestamp": "2025-08-26 10:56:25,018", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-26 10:56:25,023", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:56:25] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-26 10:56:36,699", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:56:36] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 11:51:30,104", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 11:51:30,105", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 11:51:41,660", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 11:51:41,668", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 11:51:41] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 11:51:59,969", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 11:51:59] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:11:48,825", "level": "INFO", "module": "inventario_service", "message": "Ingrediente guardado correctamente - ID: 8", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:11:48,828", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:11:48] \"\u001b[35m\u001b[1mPOST /inventario/api/ HTTP/1.1\u001b[0m\" 201 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:11:55,191", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:11:55] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:01,327", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:01] \"\u001b[31m\u001b[1mPUT /inventario/api/8 HTTP/1.1\u001b[0m\" 401 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:24,111", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:24] \"\u001b[31m\u001b[1mPUT /inventario/api/8 HTTP/1.1\u001b[0m\" 422 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:32,733", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:32,736", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:32] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:51,052", "level": "WARNING", "module": "inventario_service", "message": "Nombre de ingrediente inv\u00e1lido", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 12:56:51,055", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 12:56:51] \"\u001b[31m\u001b[1mPUT /inventario/api/8 HTTP/1.1\u001b[0m\" 400 -", "ip": "10.2.0.2"}
