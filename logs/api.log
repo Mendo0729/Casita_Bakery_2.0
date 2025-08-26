@@ -153,3 +153,19 @@
 {"timestamp": "2025-08-23 11:53:29,140", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-23 11:53:29,143", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:53:29] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
 {"timestamp": "2025-08-23 11:55:03,188", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [23/Aug/2025 11:55:03] \"\u001b[31m\u001b[1mPUT /pedidos/api/1 HTTP/1.1\u001b[0m\" 403 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:49:30,043", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:49:30,050", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:50:02,751", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:50:02,754", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:50:02] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:50:32,671", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:50:32] \"\u001b[33mGET /inventario/api/ HTTP/1.1\u001b[0m\" 404 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:52:54,455", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:52:54,456", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:53:02,254", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:53:02,258", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:53:02] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:53:17,697", "level": "ERROR", "module": "inventario_service", "message": "Error inesperado al obtener los ingredientes: 'Ingrediente' object has no attribute 'to_dict'", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:53:17,699", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:53:17] \"\u001b[35m\u001b[1mGET /inventario/api/ HTTP/1.1\u001b[0m\" 500 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:56:19,629", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:56:19,630", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:56:25,018", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:56:25,023", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:56:25] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
+{"timestamp": "2025-08-26 10:56:36,699", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [26/Aug/2025 10:56:36] \"GET /inventario/api/ HTTP/1.1\" 200 -", "ip": "10.2.0.2"}
