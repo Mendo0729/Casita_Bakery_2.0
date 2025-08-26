@@ -355,7 +355,7 @@ def actualizar_ingrediente(ingrediente_id, data):
         )
 
 
-def eliminar_ingrediente(ingrediente_id):
+"""def eliminar_ingrediente(ingrediente_id):
     
     try:
         pass
@@ -368,4 +368,4 @@ def eliminar_ingrediente(ingrediente_id):
     if ingrediente:
         db.session.delete(ingrediente)
         db.session.commit()
-    return ingrediente
+    return ingrediente"""
