@@ -3,7 +3,6 @@ import logging
 
 from flask import make_response, render_template
 from flask_sqlalchemy import SQLAlchemy
-import pdfkit
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Clientes, DetallePedido, Pedidos, Productos
