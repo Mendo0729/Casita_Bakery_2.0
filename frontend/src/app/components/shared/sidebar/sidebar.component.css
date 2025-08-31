@@ -1,0 +1,85 @@
+.sidebar {
+    width: 70px;
+    height: 100vh;
+    background-color: var(--color-marron-oscuro);
+    color: var(--color-crema);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px 0;
+}
+
+.sidebar.open {
+    width: 300px;
+    /* abierto */
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.name__page {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.sidebar:not(.open) .name__page {
+    display: none;
+}
+
+.menu-icon {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
+.options__menu {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.options__menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-crema);
+    transition: background-color 0.3s;
+}
+
+.options__menu a:hover {
+    background-color: var(--color-rosa-pastel);
+    color: white;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: white;
+}

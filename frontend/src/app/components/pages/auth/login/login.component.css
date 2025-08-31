@@ -1,0 +1,139 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-rosa-pastel);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    border-radius: 16px;
+    background-color: var(--color-crema);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Título */
+h2 {
+    margin-bottom: 24px;
+    color: var(--color-marron-oscuro);
+    font-size: 26px;
+    font-weight: 600;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-rosa-pastel);
+    left: 50%;
+    bottom: -8px;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* Grupos del formulario */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    color: var(--color-marron-oscuro);
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--color-marron-claro);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-marron-oscuro);
+    box-shadow: 0 0 0 3px rgba(94, 45, 30, 0.2);
+}
+
+/* Botón */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-marron-oscuro);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--color-marron-claro);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+/* Mensaje de error */
+.error {
+    margin-top: 20px;
+    color: #e74c3c;
+    font-size: 14px;
+    padding: 12px;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid #e74c3c;
+    border-radius: 8px;
+    text-align: left;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+        margin: 0 15px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    input {
+        padding: 12px;
+    }
+
+    button {
+        padding: 12px;
+    }
+}

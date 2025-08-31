@@ -1,0 +1,6 @@
+<!-- app.html -->
+<app-sidebar *ngIf="authService.isLoggedIn()" (toggle)="onSidebarToggle($event)"></app-sidebar>
+
+<main [class.shifted]="isSidebarOpen" class="main-content">
+    <router-outlet></router-outlet>
+</main>

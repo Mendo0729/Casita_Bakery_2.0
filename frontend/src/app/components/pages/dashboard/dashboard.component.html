@@ -1,0 +1,78 @@
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Contenido principal -->
+    <main class="contenido-principal">
+        <div class="dashboard">
+            <h2>Dashboard de Pedidos</h2>
+
+            <!-- Resumen -->
+            <div class="summary" [class.loading]="loading">
+                <div class="card" *ngIf="!loading; else skeleton1">
+                    <h3>Total de Pedidos</h3>
+                    <p>{{ summary.total }}</p>
+                </div>
+                <ng-template #skeleton1>
+                    <div class="card skeleton">
+                        <h3>Total de Pedidos</h3>
+                        <p></p>
+                    </div>
+                </ng-template>
+
+                <div class="card" *ngIf="!loading; else skeleton2">
+                    <h3>Pedidos Pendientes</h3>
+                    <p>{{ summary.pendientes }}</p>
+                </div>
+                <ng-template #skeleton2>
+                    <div class="card skeleton">
+                        <h3>Pedidos Pendientes</h3>
+                        <p></p>
+                    </div>
+                </ng-template>
+
+                <div class="card" *ngIf="!loading; else skeleton3">
+                    <h3>Pedidos Entregados</h3>
+                    <p>{{ summary.entregados }}</p>
+                </div>
+                <ng-template #skeleton3>
+                    <div class="card skeleton">
+                        <h3>Pedidos Entregados</h3>
+                        <p></p>
+                    </div>
+                </ng-template>
+            </div>
+
+            <!-- Acciones rápidas -->
+            <div class="actions">
+                <button class="btn">Crear Nuevo Pedido</button>
+                <button class="btn">Ver Pedidos Pendientes</button>
+            </div>
+
+            <!-- Pedidos recientes -->
+            <div class="recent-orders">
+                <h3>Pedidos Recientes</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pedido of recentOrders">
+                                <td>{{ pedido.id }}</td>
+                                <td>{{ pedido.cliente }}</td>
+                                <td>{{ pedido.estado }}</td>
+                                <td>{{ pedido.fecha }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
