@@ -1,0 +1,77 @@
+{"timestamp": "2025-08-29 18:26:03,216", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 18:26:03,286", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 18:26:03,286", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 18:27:19,698", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 18:27:19] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 18:27:20,410", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 18:27:20,414", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 18:27:20] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:38:25,377", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:38:25,533", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:38:25,533", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:41:25,711", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 20:41:25] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:41:26,346", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:41:26,348", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 20:41:26] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:41:26,681", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:41:26,684", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 20:41:26] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:44:09,365", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 20:44:09] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:44:09,923", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 20:44:09,926", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 20:44:09] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:20:55,074", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:20:55,220", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:20:55,221", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:23:21,234", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 21:23:21] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:23:21,894", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 21:23:21,897", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 21:23:21] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:53:40,656", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:53:40,788", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:53:40,789", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:54:21,600", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 22:54:21] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:54:22,245", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:54:22,249", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 22:54:22] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:58:53,443", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 22:58:53] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:58:54,027", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 22:58:54,030", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 22:58:54] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:01:13,568", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:01:13] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:01:14,287", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:01:14,290", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:01:14] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:07:40,124", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:07:40] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:07:40,840", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:07:40,843", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:07:40] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:22:47,807", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:22:47] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:22:48,392", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:22:48,395", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:22:48] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:26:16,115", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:26:16] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:26:16,834", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:26:16,838", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:26:16] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:30:10,061", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:30:10] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:30:10,673", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-29 23:30:10,677", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [29/Aug/2025 23:30:10] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:23:28,079", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:23:28,393", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:23:28,393", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:24:50,829", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 17:24:50] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:24:51,320", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 17:24:51,328", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 17:24:51] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:02:44,704", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:02:44] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:02:45,147", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:02:45,150", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:02:45] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:36:38,636", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:36:38] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:36:39,061", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:36:39,062", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:36:39] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:49:17,104", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:49:17] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:49:17,915", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 18:49:17,920", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 18:49:17] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:48:59,320", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:48:59] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:49:00,028", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:49:00,031", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:49:00] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:51:23,288", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:51:23] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:51:23,869", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:51:23,873", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:51:23] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:58:44,062", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:58:44] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:58:44,840", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 19:58:44,843", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 19:58:44] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:31:18,512", "level": "INFO", "module": "logging", "message": "\u2705 Logging inicializado correctamente", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:31:18,681", "level": "INFO", "module": "_internal", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:31:18,682", "level": "INFO", "module": "_internal", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:33:45,039", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 20:33:45] \"OPTIONS /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:33:45,695", "level": "INFO", "module": "auth_service", "message": "Usuario autenticado exitosamente: admin1", "ip": "100.89.177.19"}
+{"timestamp": "2025-08-30 20:33:45,699", "level": "INFO", "module": "_internal", "message": "127.0.0.1 - - [30/Aug/2025 20:33:45] \"POST /auth/api/login HTTP/1.1\" 200 -", "ip": "100.89.177.19"}
