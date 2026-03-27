@@ -1,2 +1,4 @@
 .env
-create_user.py
+__pycache__/
+*.pyc
+logs/*.log
