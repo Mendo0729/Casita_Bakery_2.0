@@ -2,7 +2,7 @@ from ..utils.db import db
 
 
 class Clientes(db.Model):
-    __tablename__ = 'Clientes'
+    __tablename__ = 'clientes'
     
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)

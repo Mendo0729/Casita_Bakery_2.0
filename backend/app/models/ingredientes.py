@@ -1,7 +1,7 @@
 from ..utils.db import db
 
 class Ingrediente(db.Model):
-    __tablename__ = 'Ingredientes'
+    __tablename__ = 'ingredientes'
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)

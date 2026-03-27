@@ -2,10 +2,10 @@ from ..utils.db import db
 
 
 class Pedidos(db.Model):
-    __tablename__ = 'Pedidos'
+    __tablename__ = 'pedidos'
 
     id = db.Column(db.Integer, primary_key=True)
-    cliente_id = db.Column(db.Integer, db.ForeignKey('Clientes.id'), nullable=False)
+    cliente_id = db.Column(db.Integer, db.ForeignKey('clientes.id'), nullable=False)
     fecha_pedido = db.Column(db.DateTime, server_default=db.func.current_timestamp())
     fecha_entrega = db.Column(db.Date)
     estado = db.Column(db.Enum('pendiente', 'entregado', 'cancelado', name='estado_pedido'), default='pendiente')
@@ -26,11 +26,11 @@ class Pedidos(db.Model):
 
 
 class DetallePedido(db.Model):
-    __tablename__ = 'Detalles_pedido'
+    __tablename__ = 'detalles_pedido'
 
     id = db.Column(db.Integer, primary_key=True)
-    pedido_id = db.Column(db.Integer, db.ForeignKey('Pedidos.id'), nullable=False)
-    producto_id = db.Column(db.Integer, db.ForeignKey('Productos.id'), nullable=False)
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedidos.id'), nullable=False)
+    producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False, default=1)
     precio_unitario = db.Column(db.Numeric(10, 2), nullable=False)
     subtotal = db.Column(db.Numeric(10, 2), nullable=False)
