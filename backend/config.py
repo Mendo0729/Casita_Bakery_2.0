@@ -7,13 +7,13 @@ load_dotenv()
 class Config:
     # ---------------------- Flask ----------------------
     SECRET_KEY = os.getenv("APP_SECRET_KEY", "dev-secret-key-change-in-production")
-    ENV = os.getenv("FLASK_ENV", "production")
+    ENV = os.getenv("FLASK_ENV", "development")
     DEBUG = ENV == "development"
 
     # ---------------------- DB -------------------------
     SQLALCHEMY_DATABASE_URI = (
         f"mysql+pymysql://{os.getenv('DB_USER', 'root')}:{os.getenv('DB_PASSWORD', '')}"
-        f"@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '3306')}/{os.getenv('DB_NAME', 'casita_bakery')}"
+        f"@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '3306')}/{os.getenv('DB_NAME', 'Casita_Bakery')}"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {

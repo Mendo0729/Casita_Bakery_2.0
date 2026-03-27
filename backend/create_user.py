@@ -3,6 +3,7 @@ from mysql.connector import errorcode
 import sys
 from werkzeug.security import generate_password_hash
 
+
 def crear_usuario_mysql(username, password):
     try:
         # Carga variables de entorno si usas dotenv
@@ -10,11 +11,19 @@ def crear_usuario_mysql(username, password):
         from dotenv import load_dotenv
         load_dotenv()
 
+        username = username.strip()
+        password = password.strip()
+
+        if not username or not password:
+            print("Error: username y password no pueden estar vacios.")
+            return
+
         conexion = mysql.connector.connect(
             host=os.getenv("DB_HOST", "localhost"),
+            port=int(os.getenv("DB_PORT", "3306")),
             user=os.getenv("DB_USER", "root"),
             password=os.getenv("DB_PASSWORD", ""),
-            database=os.getenv("DB_NAME", "")
+            database=os.getenv("DB_NAME", "Casita_Bakery")
         )
 
         cursor = conexion.cursor()
@@ -53,6 +62,6 @@ def crear_usuario_mysql(username, password):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Uso: python create_user_mysql.py <username> <password>")
+        print("Uso: python create_user.py <username> <password>")
         sys.exit(1)
     crear_usuario_mysql(sys.argv[1], sys.argv[2])
