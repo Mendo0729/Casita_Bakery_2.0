@@ -79,6 +79,29 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.sidebar-footer {
+    width: 100%;
+}
+
+.logout-btn {
+    width: calc(100% - 24px);
+    margin: 0 12px 12px;
+    border: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--color-crema);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
 .user-avatar {
     width: 32px;
     height: 32px;
@@ -128,5 +151,11 @@
 
     .user-info {
         padding: 12px 10px;
+    }
+
+    .logout-btn {
+        width: calc(100% - 20px);
+        margin: 0 10px 10px;
+        padding: 10px 12px;
     }
 }

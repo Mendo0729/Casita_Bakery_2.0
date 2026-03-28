@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/usuarios';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,19 +19,30 @@ export class SidebarComponent {
     { label: 'Ingredientes', route: '/ingredientes', icon: 'assets/icons/ingredientes.png' }
   ];
 
-  // sidebar empieza abierto
   isOpen = false;
 
   @Output() toggle = new EventEmitter<boolean>();
 
-  // 🔑 Usuario logueado (simulación)
   user = {
-    name: 'Abdiel Mendoza',
     avatar: 'assets/icons/user.png'
   };
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  get userName(): string {
+    const user = this.authService.getUser();
+    return user?.nombre || user?.username || user?.name || 'Usuario';
+  }
+
   toggleMenu() {
     this.isOpen = !this.isOpen;
-    this.toggle.emit(this.isOpen); // emitimos el estado
+    this.toggle.emit(this.isOpen);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isOpen = false;
+    this.toggle.emit(false);
+    this.router.navigate(['/login']);
   }
 }

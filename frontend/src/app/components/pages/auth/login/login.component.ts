@@ -24,14 +24,13 @@ export class LoginComponent {
       this.password,
       { username: this.username, password: this.password }
     ).subscribe({
-      next: (res) => {
-        localStorage.setItem('access_token', res.tokens.access);
+      next: () => {
         this.router.navigate(['dashboard']);
         console.log('Login exitoso');
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Error al iniciar sesión';
-        console.log('Error al iniciar sesion')
+        this.errorMessage = err.error.message || 'Error al iniciar sesiÃ³n';
+        console.log('Error al iniciar sesion');
       }
     });
   }
@@ -41,5 +40,4 @@ export class LoginComponent {
       this.router.navigate(['/dashboard']);
     }
   }
-  
 }

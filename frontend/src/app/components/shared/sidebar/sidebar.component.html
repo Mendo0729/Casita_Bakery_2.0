@@ -1,9 +1,8 @@
 <div class="sidebar" [class.open]="isOpen">
     <button class="hamburger-btn" (click)="toggleMenu()">
-        <img src="assets/icons/menu.png" alt="Menú" class="menu-icon">
+        <img src="assets/icons/menu.png" alt="Menu" class="menu-icon">
     </button>
 
-    <!-- 👇 Solo aparece si el sidebar está abierto -->
     <div class="name__page" *ngIf="isOpen">
         <h4>Casita Bakery</h4>
     </div>
@@ -15,9 +14,14 @@
         </a>
     </div>
 
-    <!-- 👤 Usuario logueado -->
-    <div class="user-info">
-        <img [src]="user.avatar" alt="Usuario" class="user-avatar">
-        <span *ngIf="isOpen">{{ user.name }}</span>
+    <div class="sidebar-footer">
+        <button *ngIf="isOpen" class="logout-btn" (click)="logout()">
+            Cerrar sesion
+        </button>
+
+        <div class="user-info">
+            <img [src]="user.avatar" alt="Usuario" class="user-avatar">
+            <span *ngIf="isOpen">{{ userName }}</span>
+        </div>
     </div>
 </div>

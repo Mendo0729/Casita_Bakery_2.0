@@ -7,38 +7,47 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5000/auth/api';
+  private readonly accessTokenKey = 'access_token';
+  private readonly refreshTokenKey = 'refresh_token';
+  private readonly userKey = 'user';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem(this.userKey);
+  }
 
-  login(username: string, password: string, credentials: { username: string; password: string; }): Observable<any> {
+  login(username: string, password: string, credentials: { username: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
         if (res.success && res.tokens) {
-          // Guardamos los tokens en localStorage
-          localStorage.setItem('access_token', res.tokens.access);
-          localStorage.setItem('refresh_token', res.tokens.refresh);
-          localStorage.setItem('user', JSON.stringify(res.data));
+          sessionStorage.setItem(this.accessTokenKey, res.tokens.access);
+          sessionStorage.setItem(this.refreshTokenKey, res.tokens.refresh);
+          sessionStorage.setItem(this.userKey, JSON.stringify(res.data));
         }
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem(this.accessTokenKey);
+    sessionStorage.removeItem(this.refreshTokenKey);
+    sessionStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem(this.userKey);
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem('access_token');
+    return sessionStorage.getItem(this.accessTokenKey);
   }
 
   getRefreshToken(): string | null {
-    return localStorage.getItem('refresh_token');
+    return sessionStorage.getItem(this.refreshTokenKey);
   }
 
   getUser(): any {
-    const user = localStorage.getItem('user');
+    const user = sessionStorage.getItem(this.userKey);
     return user ? JSON.parse(user) : null;
   }
 

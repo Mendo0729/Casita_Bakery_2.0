@@ -11,6 +11,7 @@ from app.utils.create_responses import create_response as response
 
 auth_api = Blueprint('auth_api', __name__, url_prefix='/auth/api')
 
+
 @auth_api.route('/login', methods=['POST'])
 def api_login():
     data = request.get_json(silent=True)

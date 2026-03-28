@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash
 
 def crear_usuario_mysql(username, password):
     try:
-        # Carga variables de entorno si usas dotenv
         import os
         from dotenv import load_dotenv
         load_dotenv()
@@ -28,16 +27,13 @@ def crear_usuario_mysql(username, password):
 
         cursor = conexion.cursor()
 
-        # Hashea la contraseña
         password_hash = generate_password_hash(password)
 
-        # Verificar si usuario existe
         cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (username,))
         if cursor.fetchone():
             print(f"El usuario '{username}' ya existe.")
             return
 
-        # Insertar nuevo usuario
         cursor.execute(
             "INSERT INTO usuarios (usuario, password_hash) VALUES (%s, %s)",
             (username, password_hash)
@@ -47,7 +43,7 @@ def crear_usuario_mysql(username, password):
 
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Error: Usuario o contraseña de MySQL incorrectos.")
+            print("Error: Usuario o contraseÃ±a de MySQL incorrectos.")
         elif err.errno == errorcode.ER_BAD_DB_ERROR:
             print("Error: Base de datos no existe.")
         else:
@@ -59,6 +55,7 @@ def crear_usuario_mysql(username, password):
             cursor.close()
         if 'conexion' in locals() and conexion.is_connected():
             conexion.close()
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
