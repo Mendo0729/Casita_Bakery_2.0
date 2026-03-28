@@ -11,6 +11,22 @@ logger = logging.getLogger(__name__)
 
 def obtener_todos(pagina=1, por_pagina=10, buscar=None):
     try:
+        try:
+            pagina = int(pagina)
+            por_pagina = int(por_pagina)
+            if pagina <= 0:
+                logger.warning(f"Numero de pagina invalido: {pagina}. Se ajusta a 1.")
+                pagina = 1
+            if por_pagina <= 0 or por_pagina > 100:
+                logger.warning(f"Cantidad por pagina invalida: {por_pagina}. Se ajusta a 10.")
+                por_pagina = 10
+        except (ValueError, TypeError) as e:
+            logger.warning(
+                f"Error en parametros de paginacion: {str(e)}. Se usan valores por defecto."
+            )
+            pagina = 1
+            por_pagina = 10
+
         query = Productos.query.filter(Productos.activo == True)
 
         if buscar:

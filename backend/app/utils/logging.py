@@ -1,8 +1,19 @@
 import logging
 import os
+import re
 from logging.handlers import RotatingFileHandler
 
 from app.utils.json_logger import JSONFormatter
+
+
+ANSI_ESCAPE_RE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
+
+
+class StripAnsiFilter(logging.Filter):
+    def filter(self, record):
+        if isinstance(record.msg, str):
+            record.msg = ANSI_ESCAPE_RE.sub("", record.msg)
+        return True
 
 
 def setup_logging(app):
@@ -24,6 +35,7 @@ def setup_logging(app):
     )
     file_handler.setFormatter(JSONFormatter())
     file_handler.setLevel(log_level)
+    file_handler.addFilter(StripAnsiFilter())
 
     console_handler = logging.StreamHandler()
     console_formatter = logging.Formatter(
@@ -31,6 +43,7 @@ def setup_logging(app):
     )
     console_handler.setFormatter(console_formatter)
     console_handler.setLevel(log_level)
+    console_handler.addFilter(StripAnsiFilter())
 
     app.logger.setLevel(log_level)
     app.logger.addHandler(file_handler)
