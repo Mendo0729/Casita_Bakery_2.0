@@ -1,4 +1,124 @@
-<section class="page-header">
-  <h2>Clientes</h2>
-  <p>La vista de clientes ya tiene ruta base y esta lista para conectarse a la API.</p>
+<section class="clientes-page">
+  <header class="page-header">
+    <div>
+      <h2>Clientes</h2>
+      <p>Modulo CRUD conectado al backend.</p>
+    </div>
+    <div class="page-meta">
+      <span>Total: {{ totalClientes }}</span>
+      <span>Pagina: {{ paginaActual }}</span>
+    </div>
+  </header>
+
+  <section class="panel-card toolbar-card">
+    <div class="toolbar">
+      <div class="field search-field">
+        <label for="buscar">Buscar</label>
+        <input
+          id="buscar"
+          type="text"
+          [(ngModel)]="terminoBusqueda"
+          placeholder="Buscar por nombre"
+          (keyup.enter)="buscarClientes()"
+        />
+      </div>
+
+      <div class="toolbar-actions">
+        <button class="btn secondary" (click)="buscarClientes()">Buscar</button>
+        <button class="btn primary" (click)="abrirModalCrear()">Nuevo cliente</button>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="successMessage" class="state-card success-card dismissible-card">
+    <p>{{ successMessage }}</p>
+    <button class="alert-close" (click)="cerrarSuccessMessage()">×</button>
+  </section>
+
+  <section *ngIf="loading" class="state-card">
+    <p>Cargando clientes...</p>
+  </section>
+
+  <section *ngIf="!loading && errorMessage && !modalAbierto" class="state-card error-card">
+    <p>{{ errorMessage }}</p>
+  </section>
+
+  <section *ngIf="!loading" class="table-card">
+    <div *ngIf="clientes.length; else emptyState" class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Activo</th>
+            <th>Fecha de registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>
+              <span class="status" [class.inactive]="!cliente.activo">
+                {{ cliente.activo ? 'Si' : 'No' }}
+              </span>
+            </td>
+            <td>{{ cliente.fecha_registro | date:'short' }}</td>
+            <td class="actions-cell">
+              <button class="btn secondary small" (click)="editarCliente(cliente)">Editar</button>
+              <button
+                class="btn danger small"
+                (click)="eliminarCliente(cliente)"
+                [disabled]="eliminandoId === cliente.id"
+              >
+                {{ eliminandoId === cliente.id ? 'Eliminando...' : 'Eliminar' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="state-card inner-state">
+        <p>No hay clientes para mostrar.</p>
+      </div>
+    </ng-template>
+  </section>
 </section>
+
+<div *ngIf="modalAbierto" class="modal-backdrop" (click)="cerrarModal()">
+  <section class="modal-card" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <div>
+        <h3>{{ editandoClienteId ? 'Editar cliente' : 'Nuevo cliente' }}</h3>
+        <p>{{ editandoClienteId ? 'Actualiza la informacion del cliente.' : 'Agrega un nuevo cliente al sistema.' }}</p>
+      </div>
+      <button class="icon-btn" (click)="cerrarModal()" [disabled]="guardando">×</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="field">
+        <label for="modal-nombre">Nombre</label>
+        <input
+          id="modal-nombre"
+          type="text"
+          [(ngModel)]="nombreCliente"
+          placeholder="Escribe el nombre del cliente"
+        />
+      </div>
+
+      <section *ngIf="errorMessage" class="state-card error-card modal-state">
+        <p>{{ errorMessage }}</p>
+      </section>
+    </div>
+
+    <footer class="modal-actions">
+      <button class="btn secondary" (click)="cerrarModal()" [disabled]="guardando">Cancelar</button>
+      <button class="btn primary" (click)="guardarCliente()" [disabled]="guardando">
+        {{ guardando ? 'Guardando...' : (editandoClienteId ? 'Actualizar cliente' : 'Crear cliente') }}
+      </button>
+    </footer>
+  </section>
+</div>
