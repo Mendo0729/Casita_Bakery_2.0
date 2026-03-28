@@ -1,7 +1,7 @@
 from decimal import Decimal, InvalidOperation
 import logging
 
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from app.models import Productos
 from app.utils.create_responses import create_response as response
@@ -430,6 +430,21 @@ def eliminar(producto_id):
             message="Producto eliminado exitosamente",
             status_code=200 
         )
+    except IntegrityError as e:
+        db.session.rollback()
+        logger.warning(
+            f"No se puede eliminar el producto {producto_id} porque tiene registros asociados: {str(e)}"
+        )
+        return response(
+            success=False,
+            message="No se puede eliminar el producto",
+            errors={
+                "code": "related_records",
+                "detail": "El producto tiene pedidos asociados y no puede eliminarse"
+            },
+            status_code=409
+        )
+
     except SQLAlchemyError as e:
         db.session.rollback()
         logger.error(f"Error inesperado al eliminar al producto {producto_id}: {str(e)}")

@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from app.models import Clientes
 from app.utils.create_responses import create_response as response
@@ -369,6 +369,21 @@ def eliminar_cliente(cliente_id):
             data={"id": cliente_id},
             message="Cliente eliminado exitosamente",
             status_code=200
+        )
+
+    except IntegrityError as e:
+        db.session.rollback()
+        logger.warning(
+            f"No se puede eliminar el cliente {cliente_id} porque tiene pedidos asociados: {str(e)}"
+        )
+        return response(
+            success=False,
+            message="No se puede eliminar el cliente",
+            errors={
+                "code": "related_records",
+                "detail": "El cliente tiene pedidos asociados y no puede eliminarse"
+            },
+            status_code=409
         )
 
     except SQLAlchemyError as e:

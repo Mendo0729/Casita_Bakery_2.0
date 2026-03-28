@@ -1,11 +1,10 @@
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 import logging
 
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Ingrediente
 from app.utils.db import db
-from decimal import Decimal
 from app.utils.create_responses import create_response as response
 
 logger = logging.getLogger(__name__)
@@ -93,7 +92,7 @@ def obtener_por_id(ingrediente_id):
             logger.info(f"Ingrediente no encontrado: {ingrediente_id}")
             return response(
                 success=False,
-                message="ingrediente no encontrado",
+                message="Ingrediente no encontrado",
                 errors={
                     "code": "not_found",
                     "detail": f"No existe el ingrediente con ID {ingrediente_id}"
@@ -105,7 +104,7 @@ def obtener_por_id(ingrediente_id):
         return response(
             success=True,
             data=ingrediente.to_dict(),
-            message="ingrediente obtenido correctamente",
+            message="Ingrediente obtenido correctamente",
             status_code=200
         )
     
@@ -163,6 +162,18 @@ def guardar_ingrediente(data):
                 status_code=400
             )
 
+        if len(nombre) > 100:
+            logger.warning("Nombre de ingrediente demasiado largo")
+            return response(
+                success=False,
+                message="Nombre de ingrediente invÃ¡lido",
+                errors={
+                    "code": "invalid_input",
+                    "detail": "El nombre no puede exceder 100 caracteres"
+                },
+                status_code=400
+            )
+
         try:
             cantidad = float(cantidad)
             punto_reorden = float(punto_reorden)
@@ -194,7 +205,7 @@ def guardar_ingrediente(data):
                 success=False,
                 message="Ingrediente ya existe",
                 errors={
-                    "code": "duplicate_entry",
+                    "code": "already_exists",
                     "detail": f"Ya existe un ingrediente con el nombre '{nombre}'"
                 },
                 status_code=409
@@ -286,13 +297,21 @@ def actualizar_ingrediente(ingrediente_id, data):
                     status_code=400
                 )
 
+            if len(nuevo_nombre) > 100:
+                return response(
+                    success=False,
+                    message="Nombre de ingrediente invÃ¡lido",
+                    errors={"code": "invalid_input", "detail": "El nombre no puede exceder 100 caracteres"},
+                    status_code=400
+                )
+
             # Verificar duplicados
             existente = Ingrediente.query.filter_by(nombre=nuevo_nombre).first()
             if existente and existente.id != ingrediente_id:
                 return response(
                     success=False,
                     message="Ingrediente ya existe",
-                    errors={"code": "duplicate_entry", "detail": f"Ya existe un ingrediente con el nombre '{nuevo_nombre}'"},
+                    errors={"code": "already_exists", "detail": f"Ya existe un ingrediente con el nombre '{nuevo_nombre}'"},
                     status_code=409
                 )
 

@@ -10,7 +10,12 @@ class Productos(db.Model):
     descripcion = db.Column(db.Text)
     activo = db.Column(db.Boolean, default=True)
 
-    recetas = db.relationship('Receta', backref='producto', lazy=True)
+    recetas = db.relationship(
+        "Receta",
+        backref="producto",
+        lazy=True,
+        passive_deletes=True,
+    )
     
     def to_dict(self):
         return {

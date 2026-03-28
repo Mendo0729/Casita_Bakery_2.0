@@ -1,8 +1,6 @@
 from decimal import Decimal
 import logging
 
-from flask import make_response, render_template
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Clientes, DetallePedido, Pedidos, Productos
@@ -13,6 +11,18 @@ from app.utils.db import db
 # config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
 
 logger = logging.getLogger(__name__)
+
+
+def serializar_detalle_pedido(detalle):
+    return {
+        "id": detalle.id,
+        "pedido_id": detalle.pedido_id,
+        "producto_id": detalle.producto_id,
+        "cantidad": detalle.cantidad,
+        "precio_unitario": float(detalle.precio_unitario) if detalle.precio_unitario else None,
+        "subtotal": float(detalle.subtotal) if detalle.subtotal else None,
+        "producto": detalle.producto.to_dict() if detalle.producto else None,
+    }
 
 def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=None):
     try:
@@ -56,7 +66,11 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
                 status_code=200
             )
 
-        pedidos_data = [pd.to_dict() for pd in paginacion.items]
+        pedidos_data = []
+        for pedido in paginacion.items:
+            pedido_dict = pedido.to_dict()
+            pedido_dict["detalles"] = [serializar_detalle_pedido(detalle) for detalle in pedido.detalles]
+            pedidos_data.append(pedido_dict)
 
         return response(
             success=True,
@@ -98,6 +112,14 @@ def obtener_todos(pagina=1, por_pagina=10, buscar_estado=None, buscar_clientes=N
 
 def obtener_por_id(pedido_id):
     try:
+        if not isinstance(pedido_id, int) or pedido_id <= 0:
+            return response(
+                success=False,
+                message="ID de pedido invalido",
+                errors={"code": "invalid_input", "detail": "El ID debe ser un entero positivo"},
+                status_code=400
+            )
+
         pedido = Pedidos.query.get(pedido_id)
         if not pedido:
             return response(
@@ -110,17 +132,7 @@ def obtener_por_id(pedido_id):
         pedido_dict = pedido.to_dict()
 
 
-        detalles = []
-        for d in pedido.detalles: 
-            detalles.append({
-                "producto_id": d.producto_id,
-                "nombre_producto": d.producto.nombre if d.producto else None,
-                "cantidad": d.cantidad,
-                "precio_unitario": str(d.precio_unitario),
-                "subtotal": str(d.subtotal)
-            })
-
-        pedido_dict["detalles"] = detalles
+        pedido_dict["detalles"] = [serializar_detalle_pedido(detalle) for detalle in pedido.detalles]
 
         return response(
             success=True,
@@ -211,7 +223,16 @@ def crear_pedido(cliente_id, productos_seleccionados, fecha_entrega=None):
                     status_code=400
                 )
 
-            cantidad = int(cantidad)
+            try:
+                cantidad = int(cantidad)
+            except (ValueError, TypeError):
+                db.session.rollback()
+                return response(
+                    success=False,
+                    message="Cantidad invalida",
+                    errors={"code": "invalid_quantity", "detail": "La cantidad debe ser un entero mayor a cero"},
+                    status_code=400
+                )
             if cantidad <= 0:
                 db.session.rollback()
                 return response(
@@ -349,7 +370,16 @@ def actualizar_pedido(pedido_id, datos):
                         status_code=400
                     )
 
-                cantidad = int(cantidad)
+                try:
+                    cantidad = int(cantidad)
+                except (ValueError, TypeError):
+                    db.session.rollback()
+                    return response(
+                        success=False,
+                        message="Cantidad invalida",
+                        errors={"code": "invalid_quantity", "detail": "La cantidad debe ser un entero mayor a cero"},
+                        status_code=400
+                    )
                 if cantidad <= 0:
                     db.session.rollback()
                     return response(

@@ -9,7 +9,12 @@ class Ingrediente(db.Model):
     unidad_medida = db.Column(db.String(20), default='unidades')
     punto_reorden = db.Column(db.Numeric(10, 2), default=5.00)
 
-    recetas = db.relationship('Receta', backref='ingrediente', lazy=True)
+    recetas = db.relationship(
+        "Receta",
+        backref="ingrediente",
+        lazy=True,
+        passive_deletes=True,
+    )
 
     def to_dict(self):
         return {
