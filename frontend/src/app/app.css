@@ -20,3 +20,34 @@ body {
     background-color: var(--color-rosa-pastel);
     color: var(--color-texto);
 }
+
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.main-content {
+    min-height: 100vh;
+    padding: 24px 24px 24px 94px;
+    transition: padding-left 0.3s ease;
+}
+
+.main-content.shifted {
+    padding-left: 324px;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        padding: 16px 16px 16px 86px;
+    }
+
+    .main-content.shifted {
+        padding-left: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .main-content {
+        padding: 12px 12px 12px 78px;
+    }
+}

@@ -13,6 +13,8 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     padding: 10px 0;
+    z-index: 20;
+    overflow: hidden;
 }
 
 .sidebar.open {
@@ -82,4 +84,49 @@
     height: 32px;
     border-radius: 50%;
     background: white;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 64px;
+    }
+
+    .sidebar.open {
+        width: min(260px, calc(100vw - 24px));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .name__page {
+        font-size: 22px;
+    }
+
+    .menu-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        width: 60px;
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+
+    .sidebar.open {
+        width: min(240px, calc(100vw - 16px));
+        padding: 8px;
+    }
+
+    .hamburger-btn {
+        margin: 12px;
+    }
+
+    .options__menu a {
+        padding: 10px;
+    }
+
+    .user-info {
+        padding: 12px 10px;
+    }
 }

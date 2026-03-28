@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { AuthService } from './services/usuarios';
@@ -6,7 +7,7 @@ import { AuthService } from './services/usuarios';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
