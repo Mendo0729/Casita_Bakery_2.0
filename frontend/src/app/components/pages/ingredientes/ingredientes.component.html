@@ -1,4 +1,141 @@
-<section class="page-header">
-  <h2>Ingredientes</h2>
-  <p>La vista de ingredientes ya tiene ruta base y esta lista para conectarse a la API.</p>
+<section class="ingredientes-page">
+  <header class="page-header">
+    <div>
+      <h1>Ingredientes</h1>
+      <p>Administra el inventario conectado al backend.</p>
+    </div>
+    <div class="page-stats">
+      <span>Total: {{ totalIngredientes }}</span>
+      <span>Pagina: {{ paginaActual }}</span>
+    </div>
+  </header>
+
+  <section class="toolbar-card">
+    <div class="toolbar-search">
+      <label for="buscar-ingrediente">Buscar</label>
+      <input
+        id="buscar-ingrediente"
+        type="text"
+        [(ngModel)]="terminoBusqueda"
+        placeholder="Buscar por nombre">
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn btn-secondary" type="button" (click)="buscarIngredientes()">
+        Buscar
+      </button>
+      <button class="btn btn-primary" type="button" (click)="abrirModalCrear()">
+        Nuevo ingrediente
+      </button>
+    </div>
+  </section>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    <span>{{ successMessage }}</span>
+    <button type="button" class="alert-close" (click)="cerrarSuccessMessage()">×</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <section class="table-card">
+    <div *ngIf="loading" class="state-message">Cargando ingredientes...</div>
+
+    <div *ngIf="!loading && !ingredientes.length" class="state-message">
+      No hay ingredientes para mostrar.
+    </div>
+
+    <div *ngIf="!loading && ingredientes.length" class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Punto de reorden</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingrediente of ingredientes">
+            <td>{{ ingrediente.id }}</td>
+            <td>{{ ingrediente.nombre }}</td>
+            <td>{{ formatearNumero(ingrediente.cantidad) }}</td>
+            <td>{{ ingrediente.unidad_medida }}</td>
+            <td>{{ formatearNumero(ingrediente.punto_reorden) }}</td>
+            <td class="actions-cell">
+              <button type="button" class="table-btn edit" (click)="editarIngrediente(ingrediente)">
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div *ngIf="modalAbierto" class="modal-backdrop" (click)="cerrarModal()">
+    <section class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2>{{ editandoIngredienteId ? 'Editar ingrediente' : 'Nuevo ingrediente' }}</h2>
+          <p>Completa los datos del ingrediente.</p>
+        </div>
+        <button type="button" class="modal-close" (click)="cerrarModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <label>
+          <span>Nombre</span>
+          <input
+            type="text"
+            [(ngModel)]="nombreIngrediente"
+            placeholder="Ejemplo: Harina"
+            [disabled]="guardando">
+        </label>
+
+        <label>
+          <span>Cantidad</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [(ngModel)]="cantidadIngrediente"
+            placeholder="0.00"
+            [disabled]="guardando">
+        </label>
+
+        <label>
+          <span>Unidad de medida</span>
+          <input
+            type="text"
+            [(ngModel)]="unidadMedida"
+            placeholder="Ejemplo: kg"
+            [disabled]="guardando">
+        </label>
+
+        <label>
+          <span>Punto de reorden</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [(ngModel)]="puntoReorden"
+            placeholder="0.00"
+            [disabled]="guardando">
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" [disabled]="guardando" (click)="cerrarModal()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="guardando" (click)="guardarIngrediente()">
+          {{ guardando ? 'Guardando...' : (editandoIngredienteId ? 'Guardar cambios' : 'Crear ingrediente') }}
+        </button>
+      </div>
+    </section>
+  </div>
 </section>
