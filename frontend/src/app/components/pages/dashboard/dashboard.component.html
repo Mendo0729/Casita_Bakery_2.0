@@ -1,5 +1,17 @@
 <div class="dashboard">
-  <h2>Dashboard de Pedidos</h2>
+  <div class="dashboard-header">
+    <div>
+      <h2>Dashboard de Pedidos</h2>
+      <p>Resumen en tiempo real de la operacion comercial conectada al backend.</p>
+    </div>
+    <button type="button" class="refresh-btn" (click)="cargarDashboard()" [disabled]="loading">
+      {{ loading ? 'Actualizando...' : 'Actualizar datos' }}
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
 
   <div class="summary" [class.loading]="loading">
     <div class="card" *ngIf="!loading; else skeleton1">
@@ -37,28 +49,44 @@
   </div>
 
   <div class="actions">
-    <button class="btn">Crear Nuevo Pedido</button>
-    <button class="btn">Ver Pedidos Pendientes</button>
+    <a class="btn" routerLink="/pedidos">Crear Nuevo Pedido</a>
+    <a class="btn btn-secondary" routerLink="/pedidos">Ver Pedidos</a>
   </div>
 
   <div class="recent-orders">
-    <h3>Pedidos Recientes</h3>
-    <div class="table-container">
+    <div class="recent-orders-header">
+      <h3>Pedidos Recientes</h3>
+      <a routerLink="/pedidos">Ir al modulo de pedidos</a>
+    </div>
+
+    <div *ngIf="!loading && !recentOrders.length" class="empty-state">
+      No hay pedidos registrados todavia.
+    </div>
+
+    <div *ngIf="recentOrders.length" class="table-container">
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Cliente</th>
             <th>Estado</th>
-            <th>Fecha</th>
+            <th>Fecha pedido</th>
+            <th>Fecha entrega</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pedido of recentOrders">
-            <td>{{ pedido.id }}</td>
-            <td>{{ pedido.cliente }}</td>
-            <td>{{ pedido.estado }}</td>
-            <td>{{ pedido.fecha }}</td>
+          <tr *ngFor="let pedido of recentOrders; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ obtenerNombreCliente(pedido.cliente_id) }}</td>
+            <td>
+              <span class="status-badge" [class.status-pending]="pedido.estado === 'pendiente'" [class.status-cancelled]="pedido.estado === 'cancelado'">
+                {{ pedido.estado }}
+              </span>
+            </td>
+            <td>{{ formatearFecha(pedido.fecha_pedido) }}</td>
+            <td>{{ formatearFecha(pedido.fecha_entrega) }}</td>
+            <td>${{ pedido.total ?? 0 | number:'1.2-2' }}</td>
           </tr>
         </tbody>
       </table>

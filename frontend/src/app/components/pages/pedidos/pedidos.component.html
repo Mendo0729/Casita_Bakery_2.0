@@ -1,4 +1,229 @@
-<section class="page-header">
-  <h2>Pedidos</h2>
-  <p>La vista de pedidos ya tiene ruta base y esta lista para conectarse a la API.</p>
+<section class="pedidos-page">
+  <header class="page-header">
+    <div>
+      <h1>Pedidos</h1>
+      <p>Gestiona los pedidos, sus estados y los detalles de cada orden.</p>
+    </div>
+    <div class="page-stats">
+      <span>Total: {{ totalPedidos }}</span>
+      <span>Pagina: {{ paginaActual }}</span>
+    </div>
+  </header>
+
+  <section class="toolbar-card">
+    <div class="filters-grid">
+      <label class="filter-field" for="buscar-cliente-pedido">
+        <span>Cliente</span>
+        <input
+          id="buscar-cliente-pedido"
+          type="text"
+          [(ngModel)]="filtroCliente"
+          placeholder="Buscar por nombre de cliente">
+      </label>
+
+      <label class="filter-field" for="estado-pedido-filtro">
+        <span>Estado</span>
+        <select id="estado-pedido-filtro" [(ngModel)]="filtroEstado">
+          <option value="">Todos</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="entregado">Entregado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn btn-secondary" type="button" (click)="buscarPedidos()">
+        Buscar
+      </button>
+      <button class="btn btn-primary" type="button" (click)="abrirModalCrear()">
+        Nuevo pedido
+      </button>
+    </div>
+  </section>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    <span>{{ successMessage }}</span>
+    <button type="button" class="alert-close" (click)="cerrarSuccessMessage()">x</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <section class="table-card">
+    <div *ngIf="loading" class="state-message">Cargando pedidos...</div>
+
+    <div *ngIf="!loading && !pedidos.length" class="state-message">
+      No hay pedidos para mostrar.
+    </div>
+
+    <div *ngIf="!loading && pedidos.length" class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Fecha pedido</th>
+            <th>Fecha entrega</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let pedido of pedidos; let i = index">
+            <tr>
+              <td>{{ ((paginaActual - 1) * 10) + i + 1 }}</td>
+              <td>{{ obtenerNombreCliente(pedido.cliente_id) }}</td>
+              <td>{{ formatearFecha(pedido.fecha_pedido) }}</td>
+              <td>{{ formatearFecha(pedido.fecha_entrega) }}</td>
+              <td>
+                <span class="badge" [class.badge-warning]="pedido.estado === 'pendiente'" [class.badge-danger]="pedido.estado === 'cancelado'">
+                  {{ pedido.estado }}
+                </span>
+              </td>
+              <td>${{ formatearMoneda(pedido.total) }}</td>
+              <td class="actions-cell">
+                <button type="button" class="table-btn detail" (click)="toggleDetalles(pedido.id)">
+                  {{ pedidoExpandidoId === pedido.id ? 'Ocultar detalle' : 'Ver detalle' }}
+                </button>
+                <button
+                  *ngIf="puedeEditar(pedido)"
+                  type="button"
+                  class="table-btn edit"
+                  (click)="editarPedido(pedido)">
+                  Editar
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="pedidoExpandidoId === pedido.id" class="details-row">
+              <td colspan="7">
+                <div class="details-card">
+                  <h3>Detalle del pedido</h3>
+
+                  <div *ngIf="!pedido.detalles.length" class="empty-detail">
+                    Este pedido no tiene productos asociados.
+                  </div>
+
+                  <div *ngIf="pedido.detalles.length" class="details-list">
+                    <article *ngFor="let detalle of pedido.detalles" class="detail-item">
+                      <div>
+                        <strong>{{ detalle.producto?.nombre || obtenerNombreProducto(detalle.producto_id) }}</strong>
+                        <p>ID producto: {{ detalle.producto_id }}</p>
+                      </div>
+                      <div>
+                        <span>Cantidad</span>
+                        <strong>{{ detalle.cantidad }}</strong>
+                      </div>
+                      <div>
+                        <span>Precio unitario</span>
+                        <strong>${{ formatearMoneda(detalle.precio_unitario) }}</strong>
+                      </div>
+                      <div>
+                        <span>Subtotal</span>
+                        <strong>${{ formatearMoneda(detalle.subtotal) }}</strong>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div *ngIf="modalAbierto" class="modal-backdrop" (click)="cerrarModal()">
+    <section class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2>{{ editandoPedidoId ? 'Editar pedido' : 'Nuevo pedido' }}</h2>
+          <p>Selecciona el cliente, la fecha de entrega y los productos del pedido.</p>
+        </div>
+        <button type="button" class="modal-close" (click)="cerrarModal()">x</button>
+      </div>
+
+      <div class="modal-body">
+        <label>
+          <span>Cliente</span>
+          <select [(ngModel)]="clienteIdSeleccionado" [disabled]="guardando || !!editandoPedidoId">
+            <option [ngValue]="null">Selecciona un cliente</option>
+            <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">
+              {{ cliente.nombre }}
+            </option>
+          </select>
+          <small *ngIf="editandoPedidoId">El cliente no se puede cambiar en pedidos existentes.</small>
+        </label>
+
+        <label>
+          <span>Fecha de entrega</span>
+          <input type="date" [(ngModel)]="fechaEntrega" [disabled]="guardando">
+        </label>
+
+        <label *ngIf="editandoPedidoId">
+          <span>Estado</span>
+          <select [(ngModel)]="estadoPedido" [disabled]="guardando">
+            <option value="pendiente">Pendiente</option>
+            <option value="entregado">Entregado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </label>
+
+        <div class="line-items-header">
+          <div>
+            <h3>Productos</h3>
+            <p>Agrega uno o varios productos con sus cantidades.</p>
+          </div>
+          <button type="button" class="btn btn-secondary" [disabled]="guardando || cargandoCatalogos" (click)="agregarLinea()">
+            Agregar linea
+          </button>
+        </div>
+
+        <div class="line-items">
+          <article *ngFor="let linea of lineasPedido; let i = index" class="line-item-card">
+            <label>
+              <span>Producto</span>
+              <select [(ngModel)]="linea.producto_id" [disabled]="guardando || cargandoCatalogos">
+                <option [ngValue]="null">Selecciona un producto</option>
+                <option *ngFor="let producto of productos" [ngValue]="producto.id">
+                  {{ producto.nombre }} - ${{ formatearMoneda(producto.precio) }}
+                </option>
+              </select>
+            </label>
+
+            <label>
+              <span>Cantidad</span>
+              <input
+                type="number"
+                min="1"
+                step="1"
+                [(ngModel)]="linea.cantidad"
+                [disabled]="guardando">
+            </label>
+
+            <div class="line-summary">
+              <span>Subtotal estimado</span>
+              <strong>${{ formatearMoneda(calcularSubtotal(linea)) }}</strong>
+            </div>
+
+            <button type="button" class="table-btn delete" [disabled]="guardando" (click)="eliminarLinea(i)">
+              Quitar
+            </button>
+          </article>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" [disabled]="guardando" (click)="cerrarModal()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="guardando || cargandoCatalogos" (click)="guardarPedido()">
+          {{ guardando ? 'Guardando...' : (editandoPedidoId ? 'Guardar cambios' : 'Crear pedido') }}
+        </button>
+      </div>
+    </section>
+  </div>
 </section>

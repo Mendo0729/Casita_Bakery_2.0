@@ -48,7 +48,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Nombre</th>
             <th>Activo</th>
             <th>Fecha de registro</th>
@@ -56,8 +56,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cliente of clientes">
-            <td>{{ cliente.id }}</td>
+          <tr *ngFor="let cliente of clientes; let i = index">
+            <td>{{ ((paginaActual - 1) * 10) + i + 1 }}</td>
             <td>{{ cliente.nombre }}</td>
             <td>
               <span class="status" [class.inactive]="!cliente.activo">

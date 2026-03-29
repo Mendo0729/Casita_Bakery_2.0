@@ -50,7 +50,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Nombre</th>
             <th>Precio</th>
             <th>Descripcion</th>
@@ -59,8 +59,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let producto of productos">
-            <td>{{ producto.id }}</td>
+          <tr *ngFor="let producto of productos; let i = index">
+            <td>{{ ((paginaActual - 1) * 10) + i + 1 }}</td>
             <td>{{ producto.nombre }}</td>
             <td>${{ formatearPrecio(producto.precio) }}</td>
             <td>{{ producto.descripcion || 'Sin descripcion' }}</td>

@@ -50,7 +50,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Nombre</th>
             <th>Cantidad</th>
             <th>Unidad</th>
@@ -59,8 +59,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let ingrediente of ingredientes">
-            <td>{{ ingrediente.id }}</td>
+          <tr *ngFor="let ingrediente of ingredientes; let i = index">
+            <td>{{ ((paginaActual - 1) * 10) + i + 1 }}</td>
             <td>{{ ingrediente.nombre }}</td>
             <td>{{ formatearNumero(ingrediente.cantidad) }}</td>
             <td>{{ ingrediente.unidad_medida }}</td>
