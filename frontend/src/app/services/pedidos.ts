@@ -62,7 +62,7 @@ export interface ActualizarPedidoPayload {
   providedIn: 'root'
 })
 export class PedidosService {
-  private apiUrl = 'http://localhost:5000/pedidos/api/';
+  private apiUrl = '/pedidos/api/';
 
   constructor(private http: HttpClient) {}
 

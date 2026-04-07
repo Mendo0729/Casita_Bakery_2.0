@@ -1,0 +1,56 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: casita_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: Casita_Bakery
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/Script_db_Casita_Bakery.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./backend/reset_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+      - ./backend/docker/init/03_admin_user.sql:/docker-entrypoint-initdb.d/03_admin_user.sql:ro
+
+  backend:
+    build: ./backend
+    container_name: casita_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: production
+      PORT: 5000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: 123456
+      DB_NAME: Casita_Bakery
+      APP_SECRET_KEY: cambia_esto_en_produccion
+      JWT_SECRET_KEY: cambia_esto_tambien
+      CORS_ORIGINS: http://localhost,http://127.0.0.1
+      LOG_LEVEL: INFO
+      AUTO_CREATE_DB: "False"
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: casita_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mysql_data:

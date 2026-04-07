@@ -38,7 +38,7 @@ export interface IngredientePayload {
   providedIn: 'root'
 })
 export class IngredientesService {
-  private apiUrl = 'http://localhost:5000/inventario/api/';
+  private apiUrl = '/inventario/api/';
 
   constructor(private http: HttpClient) {}
 

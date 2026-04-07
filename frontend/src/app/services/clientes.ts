@@ -30,7 +30,7 @@ export interface ClientesData {
   providedIn: 'root'
 })
 export class ClientesService {
-  private apiUrl = 'http://localhost:5000/cliente/api/';
+  private apiUrl = '/cliente/api/';
 
   constructor(private http: HttpClient) {}
 
